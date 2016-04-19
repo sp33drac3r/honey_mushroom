@@ -1,5 +1,9 @@
+<<<<<<< HEAD
+class UndirectedGraph < Graph
+=======
 # Allow for a dense or sparse flag to determine if a adjacency list or an adjacency matrix
 # should be used. Default to an adjacency list, i.e. "sparse"
+>>>>>>> e2db07f5bb16b431d19edee5a3e094d995579f27
 
 class UndirectedGraph #< Graph
 
@@ -15,7 +19,12 @@ class UndirectedGraph #< Graph
     edges.each {|edge| Edge.new(node_id, edge)}
     node = Node.new(value)
     @nodes[node_id] = node
+<<<<<<< HEAD
+    @edges[node_id] = edges
+    edges.each {|edge| add_edge(edge, node_id)} # adds reverse edge
+=======
     @edges[node_id] =
+>>>>>>> e2db07f5bb16b431d19edee5a3e094d995579f27
     self
   end
 

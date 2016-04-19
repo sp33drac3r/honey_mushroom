@@ -1,3 +1,4 @@
+
 class DirectedGraph #< Graph
 
   attr_accessor :nodes
@@ -16,12 +17,11 @@ class DirectedGraph #< Graph
     @nodes.delete(node_id)
   end
 
-  def delete_edge(node_id, *edges_to_delete)\
-    alledges = @nodes[node_id].edges
-    edges_to_delete.each {|edge| alledges.delete(edge)}
+  def delete_edge(node_id, *edges_to_delete)
+    all_edges = @nodes[node_id].edges
+    edges_to_delete.each {|edge| all_edges.delete(edge)}
   end
 
-  #done
   def get_node_value(node_id)
     @node[node_id].value
   end
@@ -49,7 +49,39 @@ class DirectedGraph #< Graph
     end
     return s
   end
+
+  def get_id_from_value(value)
+    #find a fast way to get id from value
+    #returns an array of all node ids with a given value
+  end
+
+  def depth_first_search(node_id, target_node, visited_nodes=Hash.new {0})
+    return true if node_id == target_node
+    @nodes[node_id].edges.each do |child|
+      visited_nodes[child] += 1
+      return nil if visited_nodes[child] == 2
+      result = breadth_first_search(@nodes[child], target_node, visited_nodes)
+      return true unless result.nil?
+    end
+    nil
+  end
+
+  def breadth_first_search(node_id, target_node, visited_nodes=Hash.new {0})
+    queue = []
+    queue << @nodes[node_id].id
+    visited_nodes[node_id] += 1
+    until queue.empty?
+      id = queue.shift
+      if id == target_node
+        true unless visited_nodes[id] == 2
+      else
+        queue.push(@nodes[id].edges)
+      end
+    end
+    false
+  end
 end
+
 
 class Node
   @@node = 0
