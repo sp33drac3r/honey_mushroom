@@ -1,4 +1,4 @@
-class DirectedGraph < Graph
+class UndirectedGraph < Graph
 
   Node = Struct.new(:value)
 
@@ -13,6 +13,7 @@ class DirectedGraph < Graph
     node = Node.new(value)
     @nodes[node_id] = node
     @edges[node_id] = edges
+    edges.each {|edge| add_edge(edge, node_id)} # adds reverse edge
     self
   end
 
