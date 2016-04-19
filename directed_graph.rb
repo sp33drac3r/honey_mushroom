@@ -55,7 +55,7 @@ class DirectedGraph #< Graph
     #returns an array of all node ids with a given value
   end
 
-  def depth_first_search(node_id, target_node, visited_nodes=Hash.new(0))
+  def depth_first_search(node_id, target_node, visited_nodes=Hash.new {0})
     return true if node_id == target_node
     @nodes[node_id].edges.each do |child|
       visited_nodes[child] += 1
@@ -66,7 +66,7 @@ class DirectedGraph #< Graph
     nil
   end
 
-  def breadth_first_search(node_id, target_node visited_nodes=Hash.new(0))
+  def breadth_first_search(node_id, target_node, visited_nodes=Hash.new {0})
     queue = []
     queue << @nodes[node_id].id
     visited_nodes[node_id] += 1
