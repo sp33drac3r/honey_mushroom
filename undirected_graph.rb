@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 class UndirectedGraph < Graph
+=======
+# Allow for a dense or sparse flag to determine if a adjacency list or an adjacency matrix
+# should be used. Default to an adjacency list, i.e. "sparse"
+>>>>>>> e2db07f5bb16b431d19edee5a3e094d995579f27
+
+class UndirectedGraph #< Graph
 
   Node = Struct.new(:value)
-
-  attr_accessor :edges
+  Edge = Struct.new(:node1, :node2)
 
   def initialize
     @nodes = {}
@@ -10,50 +16,43 @@ class UndirectedGraph < Graph
   end
 
   def add(value, node_id, edges=Array.new)
+    edges.each {|edge| Edge.new(node_id, edge)}
     node = Node.new(value)
     @nodes[node_id] = node
+<<<<<<< HEAD
     @edges[node_id] = edges
     edges.each {|edge| add_edge(edge, node_id)} # adds reverse edge
+=======
+    @edges[node_id] =
+>>>>>>> e2db07f5bb16b431d19edee5a3e094d995579f27
     self
   end
 
-  def delete(node_id)
-    node = @nodes[node_id]
-    @nodes[node_id] = nil
-    @edges.delete(node)
+  def delete
   end
 
-  def delete_edge(node_id, *edges)\
-    alledges = @edges[node_id]
-    edges.each {|edge| alledges.delete(edge)}
+  def delete_edge
   end
 
-  def get_node_value(node_id)
-    @node[node_id].value
+  def get_node_value
   end
 
-  def set_node_value(node_id, value)
-    @nodes[node_id].value = value
+  def set_node_value
   end
 
-  def add_edge(x, y)
-    @edges[x] << y
-  end
-
-  def adjacent?(x, y)
-    return true if @edges[x].include?(y) || @edges[y].include?(x)
-    false
-  end
-
-  def neighbours(node_id)
-    @edges[node_id]
+  def add_edge
   end
 
   def to_s
-    s = ""
-    @nodes.each do |node_id, node|
-      s += "#{node_id} (#{node.value}) => #{@edges[node_id]} \n"
-    end
-    return s
   end
+
 end
+# Notes
+# A node can be instantiated without any edges
+# Any node that has an edge, that edge contains two nodes
+ungraph = UndirectedGraph.new
+ungraph.add("Portland", 2).add("San Francisco", 1, [2]).add("New York", 3, [1,2])
+ungraph.to_s
+
+# ungraph = UndirectedGraph.new
+# input_array.each_with_index {|node, i| ungraph.add(node, i)}
