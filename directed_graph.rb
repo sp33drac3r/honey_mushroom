@@ -66,12 +66,14 @@ class DirectedGraph #< Graph
     nil
   end
 
-  def breadth_first_search(node_id, target_node, visited_nodes=Hash.new {0})
+  def breadth_first_search(node_id, target_node)
     queue = []
+    visited_nodes=Hash.new(0)
     queue << @nodes[node_id].id
     visited_nodes[node_id] += 1
     until queue.empty?
       id = queue.shift
+      puts id
       if id == target_node
         true unless visited_nodes[id] == 2
       else
@@ -97,8 +99,14 @@ class Node
 end
 
 graph = DirectedGraph.new
-graph.add("James").add("Tim", [1]).add("Tom", [1])
-graph.add_edge(0, 2)
-graph.add_edge(1, 2)
-puts graph.to_s
-puts graph.adjacent?(1, 2)
+
+100000.times {graph.add(nil)}
+
+File.open("test_data_set_soc-Epinions1.txt").each_line do |line|
+  node_id = line.split(' ')[0].to_i
+  edge = line.split(' ')[1].to_i
+  graph.add_edge(node_id, edge)
+end
+
+puts graph.breadth_first_search(13577, 3278)
+
