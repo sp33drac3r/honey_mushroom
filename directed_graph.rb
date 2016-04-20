@@ -1,4 +1,3 @@
-
 class DirectedGraph #< Graph
 
   attr_accessor :nodes
@@ -59,11 +58,11 @@ class DirectedGraph #< Graph
     return true if node_id == target_node
     @nodes[node_id].edges.each do |child|
       visited_nodes[child] += 1
-      return nil if visited_nodes[child] == 2
-      result = breadth_first_search(@nodes[child], target_node, visited_nodes)
-      return true unless result.nil?
+      return false if visited_nodes[child] >= 2
+      result = depth_first_search(@nodes[child].id, target_node, visited_nodes)
+      return true unless result == false
     end
-    nil
+    false
   end
 
   def breadth_first_search(node_id, target_node)
@@ -73,9 +72,8 @@ class DirectedGraph #< Graph
     visited_nodes[node_id] += 1
     until queue.empty?
       id = queue.shift
-      puts id
       if id == target_node
-        true unless visited_nodes[id] == 2
+        true unless visited_nodes[id] >= 2
       else
         queue.push(@nodes[id].edges)
       end
@@ -108,5 +106,6 @@ File.open("test_data_set_soc-Epinions1.txt").each_line do |line|
   graph.add_edge(node_id, edge)
 end
 
-puts graph.breadth_first_search(13577, 3278)
+
+puts graph.depth_first_search(118, 3278)
 
