@@ -1,4 +1,3 @@
-
 class DirectedGraph #< Graph
 
   attr_accessor :nodes
@@ -51,31 +50,34 @@ class DirectedGraph #< Graph
   end
 
   def get_id_from_value(value)
+    #TODOs
     #find a fast way to get id from value
     #returns an array of all node ids with a given value
   end
 
-  def depth_first_search(node_id, target_node, visited_nodes=Hash.new {0})
-    return true if node_id == target_node
-    @nodes[node_id].edges.each do |child|
-      visited_nodes[child] += 1
-      return nil if visited_nodes[child] == 2
-      result = breadth_first_search(@nodes[child], target_node, visited_nodes)
-      return true unless result.nil?
-    end
-    nil
-  end
+  # Turns out this is not a good general case search for directed graphs
+  # def depth_first_search(node_id, target_node, visited_nodes=Hash.new {0})
+  #   return true if node_id == target_node
+  #   @nodes[node_id].edges.each do |child|
+  #     visited_nodes[child] += 1
+  #     return false if visited_nodes[child] >= 2
+  #     result = depth_first_search(@nodes[child].id, target_node, visited_nodes)
+  #     return true unless result == false
+  #   end
+  #   false
+  # end
 
-  def breadth_first_search(node_id, target_node, visited_nodes=Hash.new {0})
+  def breadth_first_search(node_id, target_node)
     queue = []
-    queue << @nodes[node_id].id
-    visited_nodes[node_id] += 1
+    visited_nodes = Hash.new(0)
+    queue << node_id
     until queue.empty?
       id = queue.shift
-      if id == target_node
-        true unless visited_nodes[id] == 2
+      visited_nodes[id] += 1
+      if id == target_node && visited_nodes[id] < 2
+        return true
       else
-        queue.push(@nodes[id].edges)
+        queue.concat(@nodes[id].edges) unless visited_nodes[id] >= 2
       end
     end
     false
@@ -89,16 +91,27 @@ class Node
   attr_reader :id
 
   def initialize(value, edges)
+    @id = @@node
     @value = value
     @edges = edges
-    @id = @@node
     @@node += 1
   end
 end
 
 graph = DirectedGraph.new
-graph.add("James").add("Tim", [1]).add("Tom", [1])
-graph.add_edge(0, 2)
-graph.add_edge(1, 2)
-puts graph.to_s
-puts graph.adjacent?(1, 2)
+
+10.times {graph.add(nil)}
+
+File.open("test.txt").each_line do |line|
+  node_id = line.split(' ')[0].to_i
+  edge = line.split(' ')[1].to_i
+  graph.add_edge(node_id, edge)
+end
+
+
+node_id = 0
+target_node = 6
+puts "Depth first: #{graph.depth_first_search(node_id, target_node)}"
+puts "Breadth first: #{graph.breadth_first_search(node_id, target_node)}"
+
+
