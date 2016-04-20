@@ -1,11 +1,66 @@
 class Graph
 
-	Node = Struct.new(:value)
+  attr_accessor :nodes
 
-  attr_accessor :edges
+  def initialize
+    @nodes = {}
+  end
 
-	def initialize
-		@nodes = {}
-		@edges = {}
-	end
+  def get_node_value(node_id)
+    @node[node_id].value
+  end
+
+  def set_node_value(node_id, value)
+    @nodes[node_id].value = value
+  end
+
+  def adjacent?(node_id, edge)
+    @nodes[node_id].edges.include?(edge)
+  end
+
+  def neighbours(node_id)
+    @nodes[node_id].edges
+  end
+
+  def to_s
+    s = ""
+    @nodes.each do |node_id, node|
+      s += "#{node_id} (#{node.value}) => #{node.edges} \n"
+    end
+    return s
+  end
+
+  def get_id_from_value(value)
+    #TODOs
+    #find a fast way to get id from value
+    #returns an array of all node ids with a given value
+  end
+
+  # Turns out this is not a good general case search for directed graphs
+  # def depth_first_search(node_id, target_node, visited_nodes=Hash.new {0})
+  #   return true if node_id == target_node
+  #   @nodes[node_id].edges.each do |child|
+  #     visited_nodes[child] += 1
+  #     return false if visited_nodes[child] >= 2
+  #     result = depth_first_search(@nodes[child].id, target_node, visited_nodes)
+  #     return true unless result == false
+  #   end
+  #   false
+  # end
+
+  def breadth_first_search(node_id, target_node)
+    queue = []
+    visited_nodes = Hash.new(0)
+    queue << node_id
+    until queue.empty?
+      id = queue.shift
+      visited_nodes[id] += 1
+      if id == target_node && visited_nodes[id] < 2
+        return true
+      else
+        queue.concat(@nodes[id].edges) unless visited_nodes[id] >= 2
+      end
+    end
+    false
+  end
 end
