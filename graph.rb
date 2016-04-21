@@ -6,12 +6,30 @@ class Graph
     @nodes = {}
   end
 
+  def add_node(value, edges=[])
+    node = Node.new(value, edges)
+    @nodes[node.id] = node
+    self
+  end
+
+  def delete_node(node_id)
+    @nodes.delete(node_id)
+  end
+
   def get_node_value(node_id)
     @node[node_id].value
   end
 
   def set_node_value(node_id, value)
     @nodes[node_id].value = value
+  end
+
+  def add_edge(node_id, edge)
+    @nodes[node_id].edges << edge
+  end
+
+  def delete_edge(node_id, *edges_to_delete)
+    edges_to_delete.each {|edge| @nodes[node_id].edges.delete(edge)}
   end
 
   def adjacent?(node_id, edge)
@@ -46,6 +64,10 @@ class Graph
   #     return true unless result == false
   #   end
   #   false
+  # end
+
+  #TODO
+  # def iterative_deepening_depth_first_search(node_id, target_node)
   # end
 
   def breadth_first_search(node_id, target_node)

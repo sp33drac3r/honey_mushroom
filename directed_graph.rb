@@ -1,26 +1,7 @@
 require_relative 'graph'
 require_relative 'node'
 
-class DirectedGraph < Graph
-
-  def add(value, edges=[])
-    node = Node.new(value, edges)
-    @nodes[node.id] = node
-    self
-  end
-
-  def delete(node_id)
-    @nodes.delete(node_id)
-  end
-
-  def delete_edge(node_id, *edges_to_delete)
-    edges_to_delete.each {|edge| @nodes[node_id].edges.delete(edge)}
-  end
-
-  def add_edge(node_id, edge)
-    @nodes[node_id].edges << edge
-  end
-end
+class DirectedGraph < Graph; end
 
 # graph = DirectedGraph.new
 
