@@ -1,3 +1,4 @@
+require_relative 'node'
 class Graph
 
   attr_accessor :nodes
@@ -7,7 +8,7 @@ class Graph
   end
 
   def add_node(value, edges=[])
-    node = Node.new(value, edges)
+    node = Node.new({value: value, edges: edges})
     @nodes[node.id] = node
     self
   end
@@ -49,7 +50,7 @@ class Graph
   end
 
   def get_id_from_value(value)
-    #TODOs
+    #TODO
     #find a fast way to get id from value
     #returns an array of all node ids with a given value
   end

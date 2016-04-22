@@ -1,5 +1,4 @@
 require_relative 'graph'
-require_relative 'node'
 
 class UndirectedGraph < Graph
 
@@ -29,28 +28,3 @@ class UndirectedGraph < Graph
     # super
   end
 end
-
-graph = UndirectedGraph.new
-
-7.times {graph.add_node(nil)}
-
-File.open("test.txt").each_line do |line|
-  node_id = line.split(' ')[0].to_i
-  edge = line.split(' ')[1].to_i
-  graph.add_edge(node_id, edge)
-end
-
-# puts graph.nodes
-# puts graph.nodes[2].edges
-# graph.nodes[2].edges.each { |edge| graph.delete_edge(edge, 2) }
-# graph.delete_edge(2, 0)
-# graph.delete_edge(2, 5)
-# graph.delete_edge(2, 6)
-
-
-graph.delete_node(2)
-puts graph.nodes
-
-# node_id = 0
-# target_node = 6
-# puts "Breadth first: #{graph.breadth_first_search(node_id, target_node)}"
