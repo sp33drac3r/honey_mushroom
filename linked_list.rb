@@ -1,10 +1,11 @@
+require_relative 'node'
 class SinlglyLinkedList
   def initialize
-    @head = Node.new(value)
+    @head = Node.new({value: value})
   end
 
   def add(value)
-    node = Node.new(value)
+    node = Node.new({value: value})
     node.next = @head
     @head = node
   end
@@ -31,20 +32,5 @@ class SinlglyLinkedList
       current = current.next
     end
     return current
-  end
-end
-
-class Node
-
-  attr_reader :value
-  attr_accessor :next
-
-  def initialize(args={})
-    @value = args.fetch(:value)
-    @next = args.fetch(:next, nil)
-
-    @value2 = args.fetch(:value2)
-    @value3 = args.fetch(:value3)
-    @value4 = args.fetch(:value4)
   end
 end
