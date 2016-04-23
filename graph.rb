@@ -41,6 +41,7 @@ class Graph
     @nodes[node_id].edges
   end
 
+  #FIXIT: to_s broken for undirected graph
   def to_s
     s = ""
     @nodes.each do |node_id, node|
