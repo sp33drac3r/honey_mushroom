@@ -1,5 +1,5 @@
 require_relative 'node'
-class SinlglyLinkedList
+class SinlglyLinkedList #< LinkedList
   def initialize
     @head = Node.new({value: value})
   end

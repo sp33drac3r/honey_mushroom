@@ -21,6 +21,12 @@ class UndirectedGraph < Graph
   end
 
   def delete_edge(node_id, edge)
+    # "2 -- [5, 6, 0] -- 5"
+    # "5 -- [2] -- 2"
+    # "2 -- [6, 0] -- 0"
+    # "0 -- [1, 2] -- 2"
+    p "#{node_id} -- #{@nodes[node_id].edges} -- #{edge}"
+    p "#{edge} -- #{@nodes[edge].edges} -- #{node_id}"
     @nodes[node_id].edges.delete(edge)
     @nodes[edge].edges.delete(node_id)
     # edges_to_delete.each { |edge| @nodes[node_id].edges.delete(edge) }
