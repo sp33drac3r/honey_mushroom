@@ -1,16 +1,26 @@
 class Queue
-
-  attr_accessor :queue
-
   def initialize
     @queue = []
   end
 
   def enqueue(value)
     @queue.push(value)
+    return value
   end
 
   def dequeue
-    return @queue.pop
+    @queue.shift
+  end
+
+  def peek
+    @queue[0]
+  end
+
+  def enq(value)
+    enqueue(value)
+  end
+
+  def dq
+    dequeue
   end
 end

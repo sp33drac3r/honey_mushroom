@@ -1,5 +1,7 @@
 require_relative 'node'
+
 class SinlglyLinkedList #< LinkedList
+  attr_reader :head
   def initialize
     @head = Node.new({value: value})
   end
