@@ -55,36 +55,4 @@ class Graph
     #find a fast way to get id from value
     #returns an array of all node ids with a given value
   end
-
-  # Turns out this is not a good general case search for directed graphs
-  # def depth_first_search(node_id, target_node, visited_nodes=Hash.new {0})
-  #   return true if node_id == target_node
-  #   @nodes[node_id].edges.each do |child|
-  #     visited_nodes[child] += 1
-  #     return false if visited_nodes[child] >= 2
-  #     result = depth_first_search(@nodes[child].id, target_node, visited_nodes)
-  #     return true unless result == false
-  #   end
-  #   false
-  # end
-
-  #TODO
-  # def iterative_deepening_depth_first_search(node_id, target_node)
-  # end
-
-  def breadth_first_search(node_id, target_node)
-    queue = []
-    visited_nodes = Hash.new(0)
-    queue << node_id
-    until queue.empty?
-      id = queue.shift
-      visited_nodes[id] += 1
-      if id == target_node && visited_nodes[id] < 2
-        return true
-      else
-        queue.concat(@nodes[id].edges) unless visited_nodes[id] >= 2
-      end
-    end
-    false
-  end
 end
