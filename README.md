@@ -1,35 +1,40 @@
 #Abstract Data Types
+Graph theory is "the study of nodes (vertices) connected in pairs by edges."(https://en.wikipedia.org/wiki/Glossary_of_graph_theory [1]) Though simple enough to describe, graphs can be a devil to implement. Use this gem to effortlessly build and traverse common data structures in Ruby.
 
-###Graph Base-type
-* Directed Graph
-* Undirected Graph
+None of the data structures in this package are best expressed in Ruby. For instance, C is much better suited to model a a queue, using pointers to create a linked list. In fact, using Ruby's array class to model some of these data-types unnecessarily limits Ruby's array functionality and using Ruby objects to model nodes and edges makes these graphs needlessly space-hungry. That said, Ruby's accessible syntax makes their implementation exceedingly easy to understand. Thus, this gem is primarily for educational purposes.
 
-###Graph Sub-types
+##Graph Base-types
+All specific implementations of a graph are born of two main graph types.
+* Directed Graph (edges have a direction and can only be traversed in said direction)
+* Undirected Graph (edges have no direction and be traversed freely)
+
+##Graph Sub-types
 The two basic graph types above are flexible enough to extend more ridged data structures.
-* Weighted Graph
+* Weighted Graph (edges have a cost associated with traversal)
 * Vertex Labeled Graph
-* Multi-graph
-* Bi/n-ary tree
+* Mixed Graph
+* Bi/n-ary Tree (a tree is just a special kind of graph)
 * A/cyclic Graph
 * In/finite Graph
 
+##Algorithms
+* Depth-first Search (DFS) (https://en.wikipedia.org/wiki/Depth-first_search wikipedia)
+* Breadth-first Search (BFS) (https://en.wikipedia.org/wiki/Breadth-first_search wikipedia)
+* Iterative Deepening Depth-first Search (IDDFS) (https://en.wikipedia.org/wiki/Iterative_deepening_depth-first_search wikipedia)
+* Dijkstra's Algorithm (https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm wikipedia)
+
 ##Additional Data-types
-None of the data structures below are best expressed in Ruby, but that doesn't mean they can't be. Using Ruby's array class to model these data-types unnecessarily limits to array's functionality.  Thus, these data structures are included solely for educational purposes.
 * Linked List (single and double)
 * Queue
 * Stack
 * Stackqueue
 
-###Algorithms
-* Depth-first Search (DFS)
-* Breadth-first Search (BFS)
-* Iterative Deepening Depth-first Search (IDDFS)
-* Dijkstra's Algorithm
-
 ##Examples
-Load any collection of data into
+Encapsulate any set of data in one of the structures described above and traverse it for fun or profit! See examples.md for examples using all of the data structures and algorithms listed above.
 
 ##Contributing
-This project is my way of learning how to use data structures to model real-world problems. If you wish to contribute to this project, then I <3 you.
+I made this project to teach myself abstract data types and I use it to become better at solving real-world problems using graphs. If you wish to contribute to this project:
+1. I <3 you.
+2. How to contribute.
 
-*Bug reports: https://github.com/sp33drac3r/abstact_data_types/issues
+* Bug reports: https://github.com/sp33drac3r/abstact_data_types/issues
