@@ -12,13 +12,13 @@ class SinlglyLinkedList #< LinkedList
     @head = node
   end
 
-  def remove_front
+  def remove_back
     current = @head
     @head = current.next
     return current
   end
 
-  def remove_back
+  def remove_front
     current = @head
     until current.next.next == nil
       current = current.next
@@ -34,5 +34,9 @@ class SinlglyLinkedList #< LinkedList
       current = current.next
     end
     return current
+  end
+
+  def to_s
+    #add to_s method for linked list
   end
 end
