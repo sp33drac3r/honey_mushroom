@@ -16,10 +16,12 @@ class Queue
     @queue[0]
   end
 
+  #shorthand = less typing =)
   def enq(value)
     enqueue(value)
   end
 
+  #shorthand = less typing =)
   def dq
     dequeue
   end
