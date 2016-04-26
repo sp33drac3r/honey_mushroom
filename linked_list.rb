@@ -3,7 +3,7 @@ require_relative 'node'
 class SinlglyLinkedList #< LinkedList
   attr_reader :head
   def initialize
-    @head = Node.new({value: value})
+    @head = Node.new({value: value, next: nil})
   end
 
   def add(value)
