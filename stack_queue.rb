@@ -18,4 +18,12 @@ class StackQueue
 
     stack_two.pop
   end
+
+  def enq(value)
+    enqueue(value)
+  end
+
+  def dq
+    dequeue
+  end
 end
