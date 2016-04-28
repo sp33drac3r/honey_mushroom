@@ -84,31 +84,48 @@ This simple web browser has three methods, .load, .back and .forward. Every time
 See [source code](/stack.rb/)
 
 ##Stackqueue
-A stackqueue is a queue made out of two stacks. At first blush it may not be obvious how to make a queue out of two stacks and even less apparent is why one would want to. If you are using a linked list to create your queue, enqueueing will be an O(1) operation but dequeuing will be an 0(n) operation because the whole linked list much be traversed before you can find the node where node.next points to nil. The runtime of enqueuing and dequeueing can be improved by using a stackqueue. Since the end result will be the same as the queue described above, I won't provide a code example here. The implementation of this stackqueue is somewhat anachronistic because the stacks are made of an array, making enqueing and dequeing both an 0(1) operation; however, looking at the source code you can get an understanding of the logic behind implementing a stackqueue.
+A stackqueue is a queue made out of two stacks. At first blush it may not be obvious how to make a queue out of two stacks and even less apparent is why one would want to. If you are using a linked list to create your queue, enqueueing will be an O(1) operation but dequeuing will be an 0(n) operation because the whole linked list much be traversed before you can find the node where node.next points to nil. The runtime of enqueuing and dequeueing can be improved by using a stackqueue. Since the end result will be the same as the queue described above, I won't provide a code example here. This implementation of a stackqueue is somewhat anachronistic because the stacks are made of an array, making enqueing and dequeing both an 0(1) operation; however, looking at the source code you can get an understanding of the logic behind implementing a stackqueue.
 
 See [source code](/stack_queue.rb/)
 
 ##Directed Graph
+In this example, we'll work with real-world data from Stanford's Large Network Dataset Collection. This dataset is from the website Epinions.com, a consumer review website. From the SNAP website, "members of the site can decide whether to 'trust' each other. All the trust relationships interact and form the Web of Trust which is then combined with review ratings to determine which reviews are shown to the user." This graph is a directed graph because trust is not necessarily mutual. At a minimum, a relationship between two nodes has a direction.
 
+Download the dataset from (https://snap.stanford.edu/data/soc-Epinions1.html SNAP, Epinions social network)
 
+| Dataset Stats  |
+|-------|--------|
+| Nodes |	75879  |
+| Edges	| 508837 |
 
-##Depth First Search
+This dataset comes in a txt file in the form of pairs of node ids. The data is anonymized, so our nodes will contain no values, only ids. First we'll all of the nodes one by one, the data on the left side of the text file, then we'll add their edges, the data on the right.
 
+```ruby
+trust_network = DirectedGraph.new
+
+File.open('soc-Epnions.txt').each do |line|
+	trust_network.add_node({id: line[0]})
+	trust_network.add_edge(line[0], line[1])
+end
+```
+
+With that, we now have a data structure that accurately models the trust relationships across a subsection of the Epinions website. In this next section, we'll cover different strategies for searching over the nodes and the edges to find trust relationships.
+
+##Breadth First Search
+Breadth first search is a iterative algorithm for searching over nodes and edges to see if there is a path from one node to another. Breadth first search moves out from the root node in a wave-like pattern, searching all of the nearest nodes first and then the next nearest and so forth.
 
 ##Undirected Graph
 
 
-
-##Breadth First Search
-
+##Depth First Search
 
 
 ##Weighted Graph
 
 
 
-##Dijkstra's Algorithm
 
+##Dijkstra's Algorithm
 
 
 ##Mixed Graph
