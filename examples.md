@@ -7,27 +7,27 @@ Visit wikipedia's on (https://en.wikipedia.org/wiki/Linked_list linked lists) fo
 
 In this example, we're going to make a conga line, using a singly linked list. Each node will represent a person and the pointer to next, will represent than hands on the shoulders of the person in front of them.
 
-'''ruby
+```ruby
 conga_lovers = ["James", "Tammy", "Arjav", "Shambhavi", "Dre", "Shannon", "Raquel"]
 conga_line = SinglyLinkedList.new
 
 conga_lovers.each { |person| conga_line.add(person)}
 
 conga_line.to_s
-'''
+```
 
 To remove someone from the back of the line, the last person to join the conga, we call
-'''ruby
+```ruby
 conga_line.remove_back
-'''
+```
 Removing a node from the front reassigns the nil pointer to the second person to the front and returns the first node added to the linked list.
-'''ruby
+```ruby
 conga_line.remove_front
-'''
+```
 To find a specific individual in the conga line, say Dre, we use .find
-'''ruby
+```ruby
 conga_line.find("Dre") #=> #<Node:28923858947, @value="Dre", @next="Shambhavi">
-'''
+```
 See [source code](/singly_linked_list.rb/)
 
 ##Queue
@@ -35,12 +35,12 @@ A queue a FIFO (First In First Out) data structure. A queues is well expressed w
 
 In this example we're going to to write a program for a printer. This printer is known around the office as Ol' Faithful, so it takes a long time but it's services are in high demand. It's only fair that the first person to send this printer a file is the first person to get their print! To receive these requests we'll use an excellent gem for sending messages over local networks called XXX.
 
-'''ruby
+```ruby
 require 'somegem'
 
 print_queue = Queue.new
 
-while true 
+while true
 	new_message = port_listen
 	print_queue.enqueue(new_message)
 end
@@ -51,14 +51,15 @@ if printer.idle unless print_queue.empty?
 	printer.print(image)
 	printer.idle = true
 end
-'''
+```
 
 The while loop listens for messages over local port and adds them to the print_queue as they come in. If the printer is idle and there are prints in the print queue, the printer is instructed to print the image, switching it's state to unavailable and when it finishes it is available to take the next print in line.
+See [source code](/queue.rb/)
 
 ##Stack
 A stack is a LIFO data structure. Think of a stack like a stack of plates at a restaurant. The last plate placed on top of the stack is the first plate to be used. In this example we'll use two stacks to create a back button and a forward button like on a web browser.
 
-'''ruby
+```ruby
 back = Stack.new
 forward = Stack.new
 
@@ -77,19 +78,45 @@ if browser.forward
 	current_page = browser.load(next_page)
 	back.push(current_page)
 end
-'''
+```
 
 This simple web browser has three methods, .load, .back and .forward. Every time a call to .load is made, the browser pushes the URL to that page onto the back stack. If the user calls .back, the last web page visited is brought into view and the page the user was looking at is pushed onto the forward stack. If they user calls the .forward, the last page pushed onto that stack is brought into view and the page the user was looking at is returned to the back stack.
+See [source code](/stack.rb/)
 
 ##Stackqueue
-A stack queue is a queue made out of two stacks. At first it may not be obvious how to make a queue out of two stacks and even less apparent is why one would want to.
+A stackqueue is a queue made out of two stacks. At first blush it may not be obvious how to make a queue out of two stacks and even less apparent is why one would want to. If you are using a linked list to create your queue, enqueueing will be an O(1) operation but dequeuing will be an 0(n) operation because the whole linked list much be traversed before you can find the node where node.next points to nil. The runtime of enqueuing and dequeueing can be improved by using a stackqueue. Since the end result will be the same as the queue described above, I won't provide a code example here. The implementation of this stackqueue is somewhat anachronistic because the stacks are made of an array, making enqueing and dequeing both an 0(1) operation; however, looking at the source code you can get an understanding of the logic behind implementing a stackqueue.
+
+See [source code](/stack_queue.rb/)
 
 ##Directed Graph
+
+
+
 ##Depth First Search
+
+
 ##Undirected Graph
+
+
+
 ##Breadth First Search
+
+
+
 ##Weighted Graph
+
+
+
 ##Dijkstra's Algorithm
+
+
+
 ##Mixed Graph
+
+
+
 ##Iterative Deepening Depth First Search
+
+
+
 
