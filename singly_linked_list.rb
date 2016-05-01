@@ -3,11 +3,11 @@ require_relative 'node'
 class SinglyLinkedList #< LinkedList
   attr_reader :head
   def initialize
-    @head = Node.new({value: value, next: nil})
+    @head = nil
   end
 
   def add(value)
-    node = Node.new({value: value})
+    node = Node.new({value: value, next: nil})
     node.next = @head
     @head = node
   end
@@ -15,16 +15,16 @@ class SinglyLinkedList #< LinkedList
   def remove_front
     current = @head
     @head = current.next
+
     return current
   end
 
   def remove_back
     current = @head
-    until current.next.next == nil
-      current = current.next
-    end
+    current = current.next until current.next.next.nil?
     node = current.next
     current.next = nil
+
     return node
   end
 
@@ -33,14 +33,15 @@ class SinglyLinkedList #< LinkedList
     until current.value == value
       current = current.next
     end
-    return current
+
+    return "Value: #{current.value}  Next: #{current.next.value}  ID: #{current.id}"
   end
 
   def to_s
     s = ''
     current = @head
-    until current.next.ni?
-      s += "[#{current}]->"
+    until current.nil?
+      s += "[#{current.value}]->"
       current = current.next
     end
 

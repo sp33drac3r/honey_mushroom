@@ -1,7 +1,7 @@
 #Code Examples
 These examples are listed in order of difficulty. We'll be using dataset from Stanford's [Large Network Dataset Collection](https://snap.stanford.edu/data/) (SNAP) in later examples to model large and complicated network systems.
 
-##Linked List
+##Linked List (DONE!)
 Linked lists are most useful in low-level programming languages that don't enjoy the luxury of automatic array resizing. They are a useful data structure when you don't know how many items will be in this list, you need constant-time insertion and deletion and you don't need random access to any of the list's elements.
 Visit wikipedia's entry on [linked lists](https://en.wikipedia.org/wiki/Linked_list) for more details.
 
@@ -9,14 +9,15 @@ In this example, we're going to make a conga line using a singly linked list. Ea
 
 ```ruby
 conga_lovers = ["James", "Tammy", "Arjav", "Shambhavi", "Dre", "Shannon", "Raquel"]
+
 conga_line = SinglyLinkedList.new
 
 conga_lovers.each { |person| conga_line.add(person)}
 
-conga_line.to_s
+conga_line.to_s #=> "[Raquel]->[Shannon]->[Dre]->[Shambhavi]->[Arjav]->[Tammy]->[James]->"
 ```
 
-To remove someone from the back of the line, the last person to join the conga, we call
+To remove someone from the back of the line, the first person to join the conga, we call:
 ```ruby
 conga_line.remove_back
 ```
@@ -24,16 +25,16 @@ Removing a node from the front reassigns the nil pointer to the second person to
 ```ruby
 conga_line.remove_front
 ```
-To find a specific individual in the conga line, say Dre, we use .find
+To find a specific individual in the conga line, say Dre, we use .find and pass it the value we're looking for.
 ```ruby
-conga_line.find("Dre") #=> #<Node:28923858947, @value="Dre", @next="Shambhavi">
+conga_line.find("Dre") #=> "Value: Dre  Next: Shambhavi  ID: 4"
 ```
 See [source code](/singly_linked_list.rb/)
 
 ##Queue
 A queue a FIFO (First In First Out) data structure. A queues is well expressed with a linked list, though it is implemented with an array in this example, where elements are added to the head and removed from the tail or vice versa. A queue is like a line at a bank: the first customer to get in the line is the first customer served. Every element that is added to the queue is dequeued (removed) in the order that they were enqueued.
 
-In this example we're going to to write a program for a printer. This printer is known around the office as Ol' Faithful, so it takes a long time but it's services are in high demand. It's only fair that the first person to send this printer a file is the first person to get their print! To receive these requests we'll use an excellent gem for sending messages over local networks called XXX.
+In this example we're going to to write a program for a printer. This printer is known around the office as Ol' Faithful, so it takes a long time but it's services are in high demand. It's only fair that the first person to send this printer a file is the first person to get their print! To receive these requests we'll use an excellent gem for sending messages over local networks called 'local_network'.
 
 ```ruby
 require 'somegem'
@@ -54,6 +55,7 @@ end
 ```
 
 The while loop listens for messages over local port and adds them to the print_queue as they come in. If the printer is idle and there are prints in the print queue, the printer is instructed to print the image, switching it's state to unavailable and when it finishes it is available to take the next print in line.
+
 See [source code](/queue.rb/)
 
 ##Stack
@@ -81,10 +83,17 @@ end
 ```
 
 This simple web browser has three methods, .load, .back and .forward. Every time a call to .load is made, the browser pushes the URL to that page onto the back stack. If the user calls .back, the last web page visited is brought into view and the page the user was looking at is pushed onto the forward stack. If they user calls the .forward, the last page pushed onto that stack is brought into view and the page the user was looking at is returned to the back stack.
+
 See [source code](/stack.rb/)
 
-##Stackqueue
-A stackqueue is a queue made out of two stacks. At first blush it may not be obvious how to make a queue out of two stacks and even less apparent is why one would want to. If you are using a linked list to create your queue, enqueueing will be an O(1) operation but dequeuing will be an 0(n) operation because the whole linked list much be traversed before you can find the node where node.next points to nil. The runtime of enqueuing and dequeueing can be improved by using a stackqueue. Since the end result will be the same as the queue described above, I won't provide a code example here. This implementation of a stackqueue is somewhat anachronistic because the stacks are made of an array, making enqueing and dequeing both an 0(1) operation; however, looking at the source code you can get an understanding of the logic behind implementing a stackqueue.
+##Stackqueue (DONE!)
+A stackqueue is a queue made out of two stacks. At first blush, it may not be obvious how to make a queue out of two stacks and even less apparent why one might want to.
+
+The problem with using a linked list to create a queue is that enqueueing will be an O(1) operation but dequeuing will be an O(n) operation because the whole linked list much be traversed before nil pointer node can be found (this true singly, not doubly, linked lists).
+
+A stackqueue is made by enqueing onto one stack and dequeing from the other. For this example, we'll call the enqueue stack the 'Push Stack' and the dequeue stack the 'Pop Stack.' Elements are enqueued onto the Push Stack exclusively. If a dequeue operation is attempted on the Pop Stack and it has nothing to dequeue, all elements elements from the Push Stack are dequed from the Push Stack and enqueued onto the Pop Stack. Then an element is dequeued from the Pop stack. Moving all elements from the Push Stack to the Pop Stack is an expensive operation but, if the cost of that operation is amortized over n operations, the resulting resulting runtime is O(1) for both enqueue and dequeue.
+
+Implementation of a stackqueue in Ruby is somewhat anachronistic because the stacks used are based on the Array class, making enqueing and dequeing both O(1) by default; however, looking at the source code can provide an understanding of the theory behind implementing a stackqueue.
 
 See [source code](/stack_queue.rb/)
 
@@ -93,17 +102,10 @@ In this example, we'll work with real-world data from Stanford's Large Network D
 
 Download the dataset from (https://snap.stanford.edu/data/soc-Epinions1.html SNAP, Epinions social network)
 
-| Dataset Stats  |
-| ----- | ------ |
-| Nodes |	75879  |
-| Edges	| 508837 |
- ----------------
-
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
+Dataset Stats
+| ------ | ------:|
+| Nodes  | 75879  |
+| Edges  | 508837 |
 
 This dataset comes in a txt file in the form of pairs of node ids. The data is anonymized, so our nodes will contain no values, only ids. First we'll all of the nodes one by one, the data on the left side of the text file, then we'll add their edges, the data on the right.
 
@@ -144,11 +146,10 @@ end
 ```
 This dataset is properly massive, with over 65 million users and almost two trillion friendships.
 
-| Dataset Stats      |
-| ----- | ---------- |
-| Nodes |	65608366   |
-| Edges	| 1806067135 |
- --------------------
+Dataset Stats
+| ------ | ----------:|
+| Nodes  | 65608366   |
+| Edges  | 1806067135 |
 
 Note: this may take a while to run and may use a large portion of your computer's RAM. Social networking sites use computers much larger than your home laptop to model their users and user-relationships.
 
