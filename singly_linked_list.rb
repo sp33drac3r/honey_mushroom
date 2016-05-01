@@ -1,6 +1,6 @@
 require_relative 'node'
 
-class SinlglyLinkedList #< LinkedList
+class SinglyLinkedList #< LinkedList
   attr_reader :head
   def initialize
     @head = Node.new({value: value, next: nil})
@@ -12,13 +12,13 @@ class SinlglyLinkedList #< LinkedList
     @head = node
   end
 
-  def remove_back
+  def remove_front
     current = @head
     @head = current.next
     return current
   end
 
-  def remove_front
+  def remove_back
     current = @head
     until current.next.next == nil
       current = current.next
@@ -37,6 +37,13 @@ class SinlglyLinkedList #< LinkedList
   end
 
   def to_s
-    #add to_s method for linked list
+    s = ''
+    current = @head
+    until current.next.ni?
+      s += "[#{current}]->"
+      current = current.next
+    end
+
+    return s
   end
 end
