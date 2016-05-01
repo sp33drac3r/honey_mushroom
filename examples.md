@@ -94,9 +94,10 @@ In this example, we'll work with real-world data from Stanford's Large Network D
 Download the dataset from (https://snap.stanford.edu/data/soc-Epinions1.html SNAP, Epinions social network)
 
 | Dataset Stats  |
-|-------|--------|
+| ----- | ------ |
 | Nodes |	75879  |
 | Edges	| 508837 |
+ ----------------
 
 This dataset comes in a txt file in the form of pairs of node ids. The data is anonymized, so our nodes will contain no values, only ids. First we'll all of the nodes one by one, the data on the left side of the text file, then we'll add their edges, the data on the right.
 
@@ -111,28 +112,70 @@ end
 
 With that, we now have a data structure that accurately models the trust relationships across a subsection of the Epinions website. In this next section, we'll cover different strategies for searching over the nodes and the edges to find trust relationships.
 
-##Breadth First Search
-Breadth first search is a iterative algorithm for searching over nodes and edges to see if there is a path from one node to another. Breadth first search moves out from the root node in a wave-like pattern, searching all of the nearest nodes first and then the next nearest and so forth.
+##Breadth-first Search
+Breadth-first search is a iterative algorithm for searching over nodes and edges to see if there is a path from one node to another. Breadth first search moves out from the root node in a wave-like pattern, searching all of the nearest nodes first and then the next nearest and so forth.
+
+Let's see if we can find a path from one user to the next. In the context of this graph, a link from one node to another could be used to simulate the trustworthiness of someone we don't know. If we believe that people we trust are likely to truth other people who we can also trust, through the transitive property, we know that we can trust an individual if we can find a trust-path from us to them.
+
+Assuming the node id that represents us is id: 234, let's see if we can trust the user with id: 5361.
+
+```ruby
+breadth_first_search_include?(234, 5361)
+```
 
 ##Undirected Graph
+An undirected is simply a graph where the edges have no direction. These graphs model relationships where, if a relationship exists between two nodes, then you can traverse from one node to the other and back again. Think of it like a handshake. You can't shake someone's hand without them also shaking your hand.
 
+In this example we're going to model the social network Friendster. Each node represents a person and each edge represents a confirmed friend request.
 
-##Depth First Search
+```ruby
+friendster_network = UndirectedGraph.new
 
+File.open('com-friendster.ungraph.txt').each do |line|
+	friendster_network.add_node({id: line[0]})
+	friendster_network.add_edge(line[0], line[1])
+end
+```
+This dataset is properly massive, with over 65 million users and almost two trillion friendships.
 
-##Weighted Graph
+| Dataset Stats      |
+| ----- | ---------- |
+| Nodes |	65608366   |
+| Edges	| 1806067135 |
+ --------------------
 
+Note: this may take a while to run and may use a large portion of your computer's RAM. Social networking sites use computers much larger than your home laptop to model their users and user-relationships.
 
+##Depth-first Search
+Depth-first search is a good choice for problems where the solutions are known to be far away from the beginning node, deep in the graph. This is because depth first search recursively searches down a line of child nodes until it can search no further. If it does not find it's solution at the leaf node, it returns to the most recent node with children and searches down that path to the leaf. Depth-first search can be more space efficient breadth-first search if the tree is very wide. This is because, breadth-first search enqueues all of the children of a node if that node is not the node it's looking for, which can become a very long list of children if the graph is very wide.
 
+Let's say we're on Friendster and we also know the Kevin Bacon is on Friendster, we know our user id is 234 and his user id is 53610209. We want to find out how many degrees of separation stand between us and Kevin Bacon.
 
-##Dijkstra's Algorithm
+```ruby
+depth_first_search_count(234, 53610209)
+```
 
+We're no celebrity and know one we know knows him, so it's reasonable to suggest that there may be many degrees of separation between us. Because we know that we won't be looking for nodes near to us and our dataset is very large, depth-first search is the right strategy in this case.
 
-##Mixed Graph
+##Binary Search Tree
 
 
 
 ##Iterative Deepening Depth First Search
+
+
+##Weighted Graph
+A weighted graph can be a either directed or undirected. A weighted graph is different only in that there is a cost to traversing an edge. For example, if we're modeling all the world's air travel, where each airport is a node and each flight path is an edge, the weight of the edges might be the distance between these two points. Let's say you were not only modeling all of the air travel, but car travel, train and boat travel as well. A weighted graph could be used to find the least costly route from one place to another using a combination of air, boat, train and road travel. If there were a weight for cost and also a weight for time, you could also find the fastest route or a balance between the fastest and the most cost effective.
+
+```ruby
+put driver code here
+```
+
+##Dijkstra's Algorithm
+Figure out what this is and how it works.
+
+
+
 
 
 
