@@ -1,7 +1,7 @@
-#Abstract Data Types
-Graph theory is "the study of nodes (vertices) connected in pairs by edges."(https://en.wikipedia.org/wiki/Glossary_of_graph_theory [1]) Though simple enough to describe, graphs can be a devil to implement. [name of gem] builds and traverses these abstract data structures.
+#Honey Mushroom
+Graph theory is "the study of nodes (vertices) connected in pairs by edges."[[1]](https://en.wikipedia.org/wiki/Glossary_of_graph_theory) Though simple enough to describe, graphs can be a devil to implement. Honey Mushroom builds and traverses these abstract data structures in Ruby.
 
-None of the data structures in this package are best expressed in Ruby. For instance, C is much better suited to model a a queue, using pointers to create a linked list. In fact, using Ruby's array class to model some of these data-types unnecessarily limits Ruby's array functionality and using Ruby objects to model nodes and edges makes these graphs needlessly space-hungry. That said, Ruby's accessible syntax makes their implementation exceedingly easy to understand. Thus, this gem is primarily for educational purposes.
+None of the data structures in this gem are best expressed in Ruby. C programming language, for example, is much better suited to model a queue, using pointers to create a linked list. In fact, using Ruby's array class to model these data-types unnecessarily limits Ruby's array functionality. Furthermore, using Ruby objects to model nodes and edges makes these graphs needlessly space inefficient. These downsides are outweighed by Ruby's accessible syntax that makes their implementation exceedingly easy to understand.
 
 ##Graph Base-types
 All specific implementations of a graph are born of two main graph types.
@@ -9,7 +9,7 @@ All specific implementations of a graph are born of two main graph types.
 * Undirected Graph (edges have no direction and be traversed freely)
 
 ##Graph Sub-types
-The two basic graph types above are flexible enough to extend more ridged data structures.
+The two basic graph types are flexible enough to extend more ridged data structures.
 * Weighted Graph (edges have a cost associated with traversal)
 * Vertex Labeled Graph
 * Mixed Graph
@@ -18,10 +18,10 @@ The two basic graph types above are flexible enough to extend more ridged data s
 * In/finite Graph
 
 ##Algorithms
-* Depth-first Search (DFS) (https://en.wikipedia.org/wiki/Depth-first_search wikipedia)
-* Breadth-first Search (BFS) (https://en.wikipedia.org/wiki/Breadth-first_search wikipedia)
-* Iterative Deepening Depth-first Search (IDDFS) (https://en.wikipedia.org/wiki/Iterative_deepening_depth-first_search wikipedia)
-* Dijkstra's Algorithm (https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm wikipedia)
+* Depth-first Search (DFS) [wikipedia](https://en.wikipedia.org/wiki/Depth-first_search)
+* Breadth-first Search (BFS) [wikipedia](https://en.wikipedia.org/wiki/Breadth-first_search)
+* Iterative Deepening Depth-first Search (IDDFS) [wikipedia](https://en.wikipedia.org/wiki/Iterative_deepening_depth-first_search)
+* Dijkstra's Algorithm [wikipedia](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
 
 ##Additional Data-types
 * Linked List (single and double)
@@ -39,3 +39,6 @@ I made this project to teach myself abstract data types and I use it to become b
 3. I'll review and merge it.
 
 Bug reports: https://github.com/sp33drac3r/abstact_data_types/issues
+
+##Armillaria solidipes
+This gem gets it's name from the 'Humongous Fungus,' the largest living organism on earth. A single specimen in the Malheur National Forest in Oregon has been growing for over 2,400 years and covers 3.4 square miles. A massive network of long rhizomorphs traverse between sapwood hosts and, in Autumn, bloom honey mushrooms.

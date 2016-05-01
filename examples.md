@@ -1,11 +1,11 @@
 #Code Examples
-These examples are listed in order of easiest to understand to most difficult. In the later examples involving graphs, we will be using dataset from Stanford's (https://snap.stanford.edu/data/ Large Network Dataset Collection) (SNAP).
+These examples are listed in order of difficulty. We'll be using dataset from Stanford's [Large Network Dataset Collection](https://snap.stanford.edu/data/) (SNAP) in later examples to model large and complicated network systems.
 
 ##Linked List
-Linked lists are used in lower level languages that don't have the luxury of automatic array resizing. They are a useful data structure when you don't know how many items will be in this list, you need constant-time insertion and deletion and you don't need random access to any of the list's elements.
-Visit wikipedia's on (https://en.wikipedia.org/wiki/Linked_list linked lists) for a more thorough understanding.
+Linked lists are most useful in low-level programming languages that don't enjoy the luxury of automatic array resizing. They are a useful data structure when you don't know how many items will be in this list, you need constant-time insertion and deletion and you don't need random access to any of the list's elements.
+Visit wikipedia's entry on [linked lists](https://en.wikipedia.org/wiki/Linked_list) for more details.
 
-In this example, we're going to make a conga line, using a singly linked list. Each node will represent a person and the pointer to next, will represent than hands on the shoulders of the person in front of them.
+In this example, we're going to make a conga line using a singly linked list. Each node will represent a person and the pointer to next will represent than hands on the shoulders of the person in front of them. For this example to make sense, we have to imagine that the @head is the front of the conga line, and new conga lovers are added to the front, not the back.
 
 ```ruby
 conga_lovers = ["James", "Tammy", "Arjav", "Shambhavi", "Dre", "Shannon", "Raquel"]
@@ -98,6 +98,12 @@ Download the dataset from (https://snap.stanford.edu/data/soc-Epinions1.html SNA
 | Nodes |	75879  |
 | Edges	| 508837 |
  ----------------
+
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
 
 This dataset comes in a txt file in the form of pairs of node ids. The data is anonymized, so our nodes will contain no values, only ids. First we'll all of the nodes one by one, the data on the left side of the text file, then we'll add their edges, the data on the right.
 
