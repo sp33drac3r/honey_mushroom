@@ -31,42 +31,46 @@ conga_line.find("Dre") #=> "Value: Dre  Next: Shambhavi  ID: 4"
 ```
 See [source code](/singly_linked_list.rb/)
 
-##Queue
-A queue a FIFO (First In First Out) data structure. A queues is well expressed with a linked list, though it is implemented with an array in this example, where elements are added to the head and removed from the tail or vice versa. A queue is like a line at a bank: the first customer to get in the line is the first customer served. Every element that is added to the queue is dequeued (removed) in the order that they were enqueued.
+##Queue (DONE!)
+A queue is a FIFO (First In, First Out) data structure. A queues is well expressed with a linked list, though it is implemented with an array in this example, where elements are added to the head and removed from the tail or vice versa. A queue is like a line at a bank: the first customer in the line is the first customer served. Every element that is added to the queue is dequeued (removed) in the order that it was enqueued.
 
-In this example we're going to to write a program for a printer. This printer is known around the office as Ol' Faithful, so it takes a long time but it's services are in high demand. It's only fair that the first person to send this printer a file is the first person to get their print! To receive these requests we'll use an excellent gem for sending messages over local networks called 'local_network'.
+In this example we're going to to write a program for a printer. This printer is known around the office as Ol' Faithful, so it takes a long time but it's services are in high demand. It's only fair that the first person to send their file to the printer is the first person to get their print! To receive these requests we'll use an excellent gem for sending messages over local networks called 'local_network'.
 
 ```ruby
-require 'somegem'
+require 'local_message'
+
+router = LocaleMessageRouter.new(5000)
+router.start
+printer = LocalMessageClient.new('localhost', 5000, 'Ol Faithful')
+printer.register
 
 print_queue = Queue.new
 
-while true
-	new_message = port_listen
-	print_queue.enqueue(new_message)
-end
+print_queue.enqueue(printer.listen)
 
 if printer.idle unless print_queue.empty?
-	image = print_queue.dequeue
 	printer.idle = false
+	image = print_queue.dequeue
 	printer.print(image)
 	printer.idle = true
 end
 ```
 
-The while loop listens for messages over local port and adds them to the print_queue as they come in. If the printer is idle and there are prints in the print queue, the printer is instructed to print the image, switching it's state to unavailable and when it finishes it is available to take the next print in line.
+LocalMessage listens for print jobs over port 5000 and adds them to the print_queue as they come in. If the printer is idle and there are prints in the print queue, the printer is instructed to print the image, switching it's state to unavailable and when it finishes it is available to take the next print in line.
 
 See [source code](/queue.rb/)
 
-##Stack
-A stack is a LIFO data structure. Think of a stack like a stack of plates at a restaurant. The last plate placed on top of the stack is the first plate to be used. In this example we'll use two stacks to create a back button and a forward button like on a web browser.
+##Stack (DONE!)
+A stack is a LIFO (Last In, First Out) data structure. Think of a stack like a stack of plates at a restaurant. The last plate placed on top of the stack is the first plate to be used. In this example, we'll use two stacks to create a back button and a forward buttons on an imaginary browser.
+
+This simple, imaginary browser has three methods, .load, .back and .forward. Every time a call to .load is made, the browser pushes the URL to the page it was looking at to the back stack. If the user calls .back, the last web page visited is brought into view with .load and the page the user was looking at is pushed onto the forward stack.
 
 ```ruby
 back = Stack.new
 forward = Stack.new
 
 if browser.load(URL)
-	current_page = back.push(URL)
+	back.push(current_page)
 end
 
 if browser.back
@@ -81,8 +85,6 @@ if browser.forward
 	back.push(current_page)
 end
 ```
-
-This simple web browser has three methods, .load, .back and .forward. Every time a call to .load is made, the browser pushes the URL to that page onto the back stack. If the user calls .back, the last web page visited is brought into view and the page the user was looking at is pushed onto the forward stack. If they user calls the .forward, the last page pushed onto that stack is brought into view and the page the user was looking at is returned to the back stack.
 
 See [source code](/stack.rb/)
 

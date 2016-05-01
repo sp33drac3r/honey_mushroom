@@ -13,7 +13,7 @@ class Node
     @value2 = args.fetch(:value2, nil) if args.include?(:value2)
     @value3 = args.fetch(:value3, nil) if args.include?(:value3)
     @value4 = args.fetch(:value4, nil) if args.include?(:value4)
-    @prev   = args.fetch(:prve,   nil) if args.include?(:prev  )
+    @last   = args.fetch(:last,   nil) if args.include?(:last  )
 
     @id     = args.fetch(:id, @@auto_increment)
 
