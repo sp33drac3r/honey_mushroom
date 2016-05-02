@@ -1,24 +1,24 @@
 class LinkedList
-  attr_reader :head
+  attr_accessor :head
   def initialize
     @head = nil
   end
 
   def add(value)
     node = Node.new({value: value, next: nil})
-    node.next = head
-    head = node
+    node.next = @head
+    @head = node
   end
 
   def remove_front
-    current = head
-    head = current.next
+    current = @head
+    @head = current.next
 
     return current
   end
 
   def find(value)
-    current = head
+    current = @head
     until current.value == value
       current = current.next
     end

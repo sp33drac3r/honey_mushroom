@@ -14,7 +14,7 @@ conga_line = SinglyLinkedList.new
 
 conga_lovers.each { |person| conga_line.add(person)}
 
-conga_line.to_s #=> "[Raquel]->[Shannon]->[Dre]->[Shambhavi]->[Arjav]->[Tammy]->[James]->"
+conga_line.to_s #=> "@head->[Raquel]->[Shannon]->[Dre]->[Shambhavi]->[Arjav]->[Tammy]->[James]->"
 ```
 
 To remove someone from the back of the line, the first person to join the conga, we call:
@@ -99,30 +99,32 @@ Implementation of a stackqueue in Ruby is somewhat anachronistic because the sta
 
 See [source code](/stack_queue.rb/)
 
-##Directed Graph
-In this example, we'll work with real-world data from Stanford's Large Network Dataset Collection. This dataset is from the website Epinions.com, a consumer review website. From the SNAP website, "members of the site can decide whether to 'trust' each other. All the trust relationships interact and form the Web of Trust which is then combined with review ratings to determine which reviews are shown to the user." This graph is a directed graph because trust is not necessarily mutual. At a minimum, a relationship between two nodes has a direction.
+##Directed Graph (DONE!)
+In this example, we'll work with real-world data from [Stanford's Large Network Dataset Collection](https://snap.stanford.edu/data/). This dataset is from the website Epinions.com, a consumer review website. From the SNAP website, "members of the site can decide whether to 'trust' each other. All the trust relationships interact and form the Web of Trust which is then combined with review ratings to determine which reviews are shown to the user." This graph is a directed graph because trust is not necessarily mutual. At a minimum, a relationship between two nodes has one direction.
 
-Download the dataset from (https://snap.stanford.edu/data/soc-Epinions1.html SNAP, Epinions social network)
+Download the dataset from [SNAP, Epinions social network](https://snap.stanford.edu/data/soc-Epinions1.html)
 
 Dataset Stats
 | ------ | ------:|
 | Nodes  | 75879  |
 | Edges  | 508837 |
 
-This dataset comes in a txt file in the form of pairs of node ids. The data is anonymized, so our nodes will contain no values, only ids. First we'll all of the nodes one by one, the data on the left side of the text file, then we'll add their edges, the data on the right.
+This dataset comes in a txt file in the form of pairs of node ids. The data is anonymized, so our nodes will contain no values, only ids. We don't know for sure if we've created the nodes before we try to connect them with an edge, so our strategy with this dataset will be to create as many blank nodes as we know we'll need and then connect them based on the relationships listed in the seed file.
 
 ```ruby
 trust_network = DirectedGraph.new
 
-File.open('soc-Epnions.txt').each do |line|
-	trust_network.add_node({id: line[0]})
-	trust_network.add_edge(line[0], line[1])
+100000.times {trust_network.add_node(nil)}
+
+File.open('test-data/full_data_set_soc-Epinions.txt').each do |line|
+  line_arr = line.split(" ")
+  trust_network.add_edge(line_arr[0].to_i, line_arr[1].to_i)
 end
 ```
 
 With that, we now have a data structure that accurately models the trust relationships across a subsection of the Epinions website. In this next section, we'll cover different strategies for searching over the nodes and the edges to find trust relationships.
 
-##Breadth-first Search
+##Breadth-first Search (DONE!)
 Breadth-first search is a iterative algorithm for searching over nodes and edges to see if there is a path from one node to another. Breadth first search moves out from the root node in a wave-like pattern, searching all of the nearest nodes first and then the next nearest and so forth.
 
 Let's see if we can find a path from one user to the next. In the context of this graph, a link from one node to another could be used to simulate the trustworthiness of someone we don't know. If we believe that people we trust are likely to truth other people who we can also trust, through the transitive property, we know that we can trust an individual if we can find a trust-path from us to them.
@@ -130,7 +132,7 @@ Let's see if we can find a path from one user to the next. In the context of thi
 Assuming the node id that represents us is id: 234, let's see if we can trust the user with id: 5361.
 
 ```ruby
-breadth_first_search_include?(234, 5361)
+trust_network.breadth_first_search_include?(0, 71400)
 ```
 
 ##Undirected Graph
