@@ -1,7 +1,7 @@
 class BinarySearchTree
 
-  def initialize(value=nil)
-    @head = Node.new(value)
+  def initialize
+    @head = nil
   end
 
   def set_head(value)

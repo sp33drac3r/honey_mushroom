@@ -14,7 +14,7 @@ conga_line = SinglyLinkedList.new
 
 conga_lovers.each { |person| conga_line.add(person)}
 
-conga_line.to_s #=> "@head->[Raquel]->[Shannon]->[Dre]->[Shambhavi]->[Arjav]->[Tammy]->[James]->"
+conga_line.to_s #=> "@head->[Raquel]->[Shannon]->[Dre]->[Shambhavi]->[Arjav]->[Rico]->[Murat]->"
 ```
 
 To remove someone from the back of the line, the first person to join the conga, we call:
@@ -104,9 +104,8 @@ In this example, we'll work with real-world data from [Stanford's Large Network 
 
 Download the dataset from [SNAP, Epinions social network](https://snap.stanford.edu/data/soc-Epinions1.html)
 
-Dataset Stats
 | Deets  | Stats  |
-| ------ | ------:|
+| ------ | ------ |
 | Nodes  | 75879  |
 | Edges  | 508837 |
 
@@ -125,6 +124,8 @@ end
 
 The resulting data structure accurately models the trust relationships across a subsection of the Epinions website. To check if two nodes are adjacent call .adjacent? on the graph passing in two nodes of interest. To see all neighbors use .neighbors. The next sections cover different strategies for searching over the nodes and the edges to find relationships between them.
 
+See [source code](/directed_graph.rb/)
+
 ##Breadth-first Search
 Breadth-first search is a iterative algorithm for searching over nodes and edges to see if there is a path from one node to another. Breadth first search moves out from the root node to all traversable leaf nodes in a wave-like pattern, searching all of the nearest nodes first and then the next nearest and so forth.
 
@@ -136,6 +137,8 @@ Graph node at id 0 is known to be trustworthy. Is the individual with idea 71400
 trust_network.breadth_first_search_include?(0, 71400)
 ```
 Appears so! What about user at id 70,000?
+
+See [source code](/breadth_first_search.rb/)
 
 ##Undirected Graph (NOT DONE)
 An undirected is simply a graph where the edges have no direction. These graphs model relationships where, if a relationship exists between two nodes, then you can traverse from one node to the other and back again. Think of it like a handshake: you can't shake someone's hand without them also shaking your hand.
@@ -154,16 +157,18 @@ end
 ```
 
 | Deets  | Stats  |
-| ------ | ------:|
+| ------ | ------ |
 | Nodes  | 334863 |
 | Edges  | 925872 |
 
+See [source code](/undirected_graph.rb/)
+
 ##Depth-first Search
-Depth-first search is a good choice for problems where the solutions are known to be far away from the beginning node, deep in the graph. Depth first search recursively searches down a line of child nodes until it can search no further. If it does not find it's solution at the leaf node, it returns to the most recent node with children and searches down that path to the leaf.
+Depth-first search is a good choice for problems where the solutions are known to be far away from the start node, deep in the graph. Depth first search recursively searches down a line of child nodes until it can search no further. If it does not find it's solution at the leaf node, it returns to the most recent node with children and searches down that path to the leaf.
 
-Depth-first search can be more space efficient breadth-first search if the tree is very wide. The reason for this is that breadth-first search enqueues all of the children of a node if that node is not the node it's looking for, which can become a very long list of children if the graph is very wide.
+Depth-first search is more space efficient breadth-first search if the tree is very wide. The reason for this is that breadth-first search enqueues all of the children of a node if that node is not the node it's looking for, which can become a very long list of children if the graph is very wide.
 
-Given a large social network, depth-first search would be a good choice for finding the degrees of separation between any one individual and Kevin Bacon. While celebrities rarely have more than a few degrees of separation, the average Joe will be quite distantly acquainted with Mr. Bacon.
+Given a large social network, depth-first search would be a good choice for finding the degrees of separation between any one individual and Kevin Bacon. While celebrities rarely have more than a few degrees of separation between themselves and Kevin Bacon, the average Joe will be quite distantly acquainted with Mr. Bacon.
 
 ```ruby
 my_id = 234
@@ -172,22 +177,69 @@ kevin_bacon_id = 53610209
 depth_first_search_include?(my_id, kevin_bacon_id)
 ```
 
-It's likely that a large majority of the friend graph will need to be traversed before a path to Kevin Bacon will be found so depth-first search makes sense both for runtime complexity and space complexity.
+In all likelihood, a large majority of the friend graph will need to be traversed before a path to Kevin Bacon can be found, so depth-first search makes sense for both for runtime and space complexity.
 
-##Binary Search Tree (NOT DONE)
+See [source code](/depth_first_search.rb/)
 
+##Binary Search Tree
+A binary search tree is a special type of graph - the architecture of any binary search tree is constrained by the values of each node. Binary trees keep there keys in sorted order meaning that any node inserted into the tree is inserted in a specific place: values greater than the root node are inserted onto the right side of the tree and values less than the root node are inserted on the left side of the tree. This pattern continues for each insertion and insertions can only occur as children of leaf nodes. This makes lookups and other operations, in principal, O(log n). For more information, see [binary search tree wikipedia](https://en.wikipedia.org/wiki/Binary_search_tree).
+
+A binary tree can be used to create a set. In computer programming, a set is a data structure where each element in the set is unique. If you have an array = [1,2,3,4,4,3,2] the set of that array would be = [1,2,3,4]. A set data structure created on top of a binary search tree will:
+
+1. Ensure uniqueness
+2. Provide o(log n) lookup, insertion and deletion.
+
+```ruby
+require 'honey_mushroom'
+
+class Set
+  attr_accessor :set
+  def initialize
+    @set = BinarySearchTree.new
+  end
+
+  def insert(value)
+    set.insert(value)
+  end
+
+  def delete(value)
+    set.delete(value)
+  end
+
+  def search(value)
+    set.search(value)
+  end
+
+  def include?(value)
+    set.include?(value)
+  end
+end
+```
+
+See [source code](/binary_search_tree.rb/)
 
 ##Iterative Deepening Depth First Search
+Iterative Deepening Depth First Search is a similar to depth first search but it is combined with a depth limited search. This means that it has the space and performance characteristics of depth first search but the nodes are visited in breadth first order.
+
+This algorithm is an improvement on breadth first search and should be used whenever depth first search is required but depth first search will require too much space to complete.
+
+See [source code](/iterative_deepening_depth_first_search.rb/)
 
 ##Weighted Graph
-A weighted graph can be a either directed or undirected. A weighted graph is different only in that there is a cost to traversing an edge. For example, if we're modeling all the world's air travel, where each airport is a node and each flight path is an edge, the weight of the edges might be the distance between these two points. Let's say you were not only modeling all of the air travel, but car travel, train and boat travel as well. A weighted graph could be used to find the least costly route from one place to another using a combination of air, boat, train and road travel. If there were a weight for cost and also a weight for time, you could also find the fastest route or a balance between the fastest and the most cost effective.
+A weighted graph can be a either directed or undirected and is different from those two base-types only in that there is a cost to traversing an edge. The cost is stored in an additional variable in the edge class. if we're modeling all the world's air travel, where each airport is a node and each flight path is an edge, the weight of the edges might be the distance between these two points.
 
 ```ruby
 put driver code here
 ```
 
+Let's say you were not only modeling all of the air travel, but car travel, train and boat travel as well. A weighted graph could be used to find the least costly route from one place to another using a combination of air, boat, train and road travel. If there were a weight for cost and also a weight for time, you could also find the fastest route or a balance between the fastest and the most cost effective.
+
+See [source code](/weighted_graph.rb/)
+
 ##Dijkstra's Algorithm
 Figure out what this is and how it works.
+
+See [source code](/dijkstras.rb/)
 
 
 
