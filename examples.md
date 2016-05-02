@@ -99,7 +99,7 @@ Implementation of a stackqueue in Ruby is somewhat anachronistic because the sta
 
 See [source code](/stack_queue.rb/)
 
-##Directed Graph (DONE!)
+##Directed Graph
 In this example, we'll work with real-world data from [Stanford's Large Network Dataset Collection](https://snap.stanford.edu/data/). This dataset is from the website Epinions.com, a consumer review website. From the SNAP website, "members of the site can decide whether to 'trust' each other. All the trust relationships interact and form the Web of Trust which is then combined with review ratings to determine which reviews are shown to the user." This graph is a directed graph because trust is not necessarily mutual. At a minimum, a relationship between two nodes has one direction.
 
 Download the dataset from [SNAP, Epinions social network](https://snap.stanford.edu/data/soc-Epinions1.html)
@@ -122,18 +122,19 @@ File.open('test-data/full_data_set_soc-Epinions.txt').each do |line|
 end
 ```
 
-With that, we now have a data structure that accurately models the trust relationships across a subsection of the Epinions website. In this next section, we'll cover different strategies for searching over the nodes and the edges to find trust relationships.
+The resulting data structure taccurately models the trust relationships across a subsection of the Epinions website. To check if two nodes are adjacent call .adjacent? on the graph passing in two nodes of interest. To see all neighbors use .neighbors. The next sections cover different strategies for searching over the nodes and the edges to find relationships between them.
 
 ##Breadth-first Search (DONE!)
-Breadth-first search is a iterative algorithm for searching over nodes and edges to see if there is a path from one node to another. Breadth first search moves out from the root node in a wave-like pattern, searching all of the nearest nodes first and then the next nearest and so forth.
+Breadth-first search is a iterative algorithm for searching over nodes and edges to see if there is a path from one node to another. Breadth first search moves out from the root node to all traversable leaf nodes in a wave-like pattern, searching all of the nearest nodes first and then the next nearest and so forth.
 
-Let's see if we can find a path from one user to the next. In the context of this graph, a link from one node to another could be used to simulate the trustworthiness of someone we don't know. If we believe that people we trust are likely to truth other people who we can also trust, through the transitive property, we know that we can trust an individual if we can find a trust-path from us to them.
+Using breadth-first search in the context of the Epinions graph, a link from one node to another could be used to estimate the trustworthiness of an individual based on the known trustworthiness of a specific individual. If it holds true that trustworthy people are likely to truth other people who are also trustworthy, given known people who are trustworthy, a map of trustworthiness could be modeled using breadth-first search.
 
-Assuming the node id that represents us is id: 234, let's see if we can trust the user with id: 5361.
+Graph node at id 0 is known to be trustworthy. Is the individual with idea 71400 trustworthy by the transitive property?
 
 ```ruby
 trust_network.breadth_first_search_include?(0, 71400)
 ```
+It appears so! What about user at id 70,000?
 
 ##Undirected Graph
 An undirected is simply a graph where the edges have no direction. These graphs model relationships where, if a relationship exists between two nodes, then you can traverse from one node to the other and back again. Think of it like a handshake. You can't shake someone's hand without them also shaking your hand.
