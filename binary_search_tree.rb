@@ -12,7 +12,7 @@ class BinarySearchTree
     if node.value == value
       return node.value
     elsif value < node.value
-      return search(value.left)
+      return search(value.left, value)
     else
       return search(value.right, value)
     end

@@ -140,10 +140,10 @@ Appears so! What about user at id 70,000?
 
 See [source code](/breadth_first_search.rb/)
 
-##Undirected Graph (NOT DONE)
+##Undirected Graph
 An undirected is simply a graph where the edges have no direction. These graphs model relationships where, if a relationship exists between two nodes, then you can traverse from one node to the other and back again. Think of it like a handshake: you can't shake someone's hand without them also shaking your hand.
 
-This example models the related products on Amazon. Each node represents a product and the edge between to products that are frequently co-purchased with another product.
+This example models the related products on Amazon. Each node represents a product and the edge between to products that are frequently co-purchased with another product. Download this dataset from SNAP, [Amazon product co-purchasing network](https://snap.stanford.edu/data/com-Amazon.html)
 
 ```ruby
 amazon_products = UndirectedGraph.new
@@ -186,8 +186,8 @@ A binary search tree is a special type of graph - the architecture of any binary
 
 A binary tree can be used to create a set. In computer programming, a set is a data structure where each element in the set is unique. If you have an array = [1,2,3,4,4,3,2] the set of that array would be = [1,2,3,4]. A set data structure created on top of a binary search tree will:
 
-1. Ensure uniqueness
-2. Provide o(log n) lookup, insertion and deletion.
+* Ensure uniqueness
+* Provide o(log n) lookup, insertion and deletion.
 
 ```ruby
 require 'honey_mushroom'
@@ -217,30 +217,6 @@ end
 ```
 
 See [source code](/binary_search_tree.rb/)
-
-##Iterative Deepening Depth First Search
-Iterative Deepening Depth First Search is a similar to depth first search but it is combined with a depth limited search. This means that it has the space and performance characteristics of depth first search but the nodes are visited in breadth first order.
-
-This algorithm is an improvement on breadth first search and should be used whenever depth first search is required but depth first search will require too much space to complete.
-
-See [source code](/iterative_deepening_depth_first_search.rb/)
-
-##Weighted Graph
-A weighted graph can be a either directed or undirected and is different from those two base-types only in that there is a cost to traversing an edge. The cost is stored in an additional variable in the edge class. if we're modeling all the world's air travel, where each airport is a node and each flight path is an edge, the weight of the edges might be the distance between these two points.
-
-```ruby
-put driver code here
-```
-
-Let's say you were not only modeling all of the air travel, but car travel, train and boat travel as well. A weighted graph could be used to find the least costly route from one place to another using a combination of air, boat, train and road travel. If there were a weight for cost and also a weight for time, you could also find the fastest route or a balance between the fastest and the most cost effective.
-
-See [source code](/weighted_graph.rb/)
-
-##Dijkstra's Algorithm
-Figure out what this is and how it works.
-
-See [source code](/dijkstras.rb/)
-
 
 
 
