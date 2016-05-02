@@ -33,6 +33,13 @@ class BinarySearchTree
     end
   end
 
+  def balance!
+  end
+
+  def delete(value)
+  end
+
+
   private
 
   def insert_left(node, value)

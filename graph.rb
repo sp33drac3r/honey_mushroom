@@ -38,9 +38,8 @@ class Graph
     @nodes[node_id].edges << edge
   end
 
-  #NOT WORKING!
-  def delete_edge(node_id, *edges_to_delete)
-    edges_to_delete.each {|edge| @nodes[node_id].edges.delete(edge)}
+  def delete_edge(node_id, edge_id)
+    @nodes[node_id].edges.delete(edge_id)
   end
 
   def adjacent?(node_id, edge)
