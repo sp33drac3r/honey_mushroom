@@ -19,13 +19,12 @@ class StackQueue
     stack_two.pop
   end
 
-  #shorthand = less typing =)
-  def enq(value)
+  def enq(value) #shorthand = less typing =)
     enqueue(value)
   end
 
-  #shorthand = less typing =)
-  def dq
+  def dq  #shorthand = less typing =)
     dequeue
   end
 end
+

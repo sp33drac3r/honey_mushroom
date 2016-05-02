@@ -1,49 +1,32 @@
 require_relative 'node'
+require_relative 'linked_list'
 
-class SinglyLinkedList #< LinkedList
-  attr_reader :head
-  def initialize
-    @head = Node.new({value: value, next: nil})
-  end
-
-  def add(value)
-    node = Node.new({value: value})
-    node.next = @head
-    @head = node
-  end
-
-  def remove_front
-    current = @head
-    @head = current.next
-    return current
-  end
+class SinglyLinkedList < LinkedList
 
   def remove_back
     current = @head
-    until current.next.next == nil
-      current = current.next
-    end
+    current = current.next until current.next.next.nil?
     node = current.next
     current.next = nil
+
     return node
   end
 
-  def find(value)
-    current = @head
-    until current.value == value
-      current = current.next
-    end
-    return current
-  end
-
   def to_s
-    s = ''
+    s = '@head->'
     current = @head
-    until current.next.ni?
-      s += "[#{current}]->"
+    until current.nil?
+      s += "[#{current.value}]->"
       current = current.next
     end
 
     return s
   end
 end
+
+conga_lovers = ["James", "Tammy", "Arjav", "Shambhavi", "Dre", "Shannon", "Raquel"]
+conga_line = SinglyLinkedList.new
+
+conga_lovers.each { |person| conga_line.add(person)}
+
+p conga_line.to_s

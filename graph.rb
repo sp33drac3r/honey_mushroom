@@ -1,7 +1,16 @@
 require_relative 'node'
+require_relative 'depth_first_search'
+require_relative 'breadth_first_search'
+require_relative 'iterative_deepening_depth_first_search'
+require_relative 'dijkstras'
+
 class Graph
 
   attr_accessor :nodes
+  include DepthFirstSearch
+  include BreadthFirstSearch
+  include IterativeDeepeningSearch
+  include Dijkstras
 
   def initialize
     @nodes = {}
@@ -29,6 +38,7 @@ class Graph
     @nodes[node_id].edges << edge
   end
 
+  #NOT WORKING!
   def delete_edge(node_id, *edges_to_delete)
     edges_to_delete.each {|edge| @nodes[node_id].edges.delete(edge)}
   end
@@ -37,7 +47,7 @@ class Graph
     @nodes[node_id].edges.include?(edge)
   end
 
-  def neighbours(node_id)
+  def neighbors(node_id)
     @nodes[node_id].edges
   end
 

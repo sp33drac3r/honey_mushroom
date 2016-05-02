@@ -1,7 +1,7 @@
 #Code Examples
 These examples are listed in order of difficulty. We'll be using dataset from Stanford's [Large Network Dataset Collection](https://snap.stanford.edu/data/) (SNAP) in later examples to model large and complicated network systems.
 
-##Linked List
+##Linked List (DONE!)
 Linked lists are most useful in low-level programming languages that don't enjoy the luxury of automatic array resizing. They are a useful data structure when you don't know how many items will be in this list, you need constant-time insertion and deletion and you don't need random access to any of the list's elements.
 Visit wikipedia's entry on [linked lists](https://en.wikipedia.org/wiki/Linked_list) for more details.
 
@@ -9,14 +9,15 @@ In this example, we're going to make a conga line using a singly linked list. Ea
 
 ```ruby
 conga_lovers = ["James", "Tammy", "Arjav", "Shambhavi", "Dre", "Shannon", "Raquel"]
+
 conga_line = SinglyLinkedList.new
 
 conga_lovers.each { |person| conga_line.add(person)}
 
-conga_line.to_s
+conga_line.to_s #=> "@head->[Raquel]->[Shannon]->[Dre]->[Shambhavi]->[Arjav]->[Tammy]->[James]->"
 ```
 
-To remove someone from the back of the line, the last person to join the conga, we call
+To remove someone from the back of the line, the first person to join the conga, we call:
 ```ruby
 conga_line.remove_back
 ```
@@ -24,47 +25,52 @@ Removing a node from the front reassigns the nil pointer to the second person to
 ```ruby
 conga_line.remove_front
 ```
-To find a specific individual in the conga line, say Dre, we use .find
+To find a specific individual in the conga line, say Dre, we use .find and pass it the value we're looking for.
 ```ruby
-conga_line.find("Dre") #=> #<Node:28923858947, @value="Dre", @next="Shambhavi">
+conga_line.find("Dre") #=> "Value: Dre  Next: Shambhavi  ID: 4"
 ```
 See [source code](/singly_linked_list.rb/)
 
-##Queue
-A queue a FIFO (First In First Out) data structure. A queues is well expressed with a linked list, though it is implemented with an array in this example, where elements are added to the head and removed from the tail or vice versa. A queue is like a line at a bank: the first customer to get in the line is the first customer served. Every element that is added to the queue is dequeued (removed) in the order that they were enqueued.
+##Queue (DONE!)
+A queue is a FIFO (First In, First Out) data structure. A queues is well expressed with a linked list, though it is implemented with an array in this example, where elements are added to the head and removed from the tail or vice versa. A queue is like a line at a bank: the first customer in the line is the first customer served. Every element that is added to the queue is dequeued (removed) in the order that it was enqueued.
 
-In this example we're going to to write a program for a printer. This printer is known around the office as Ol' Faithful, so it takes a long time but it's services are in high demand. It's only fair that the first person to send this printer a file is the first person to get their print! To receive these requests we'll use an excellent gem for sending messages over local networks called XXX.
+In this example we're going to to write a program for a printer. This printer is known around the office as Ol' Faithful, so it takes a long time but it's services are in high demand. It's only fair that the first person to send their file to the printer is the first person to get their print! To receive these requests we'll use an excellent gem for sending messages over local networks called 'local_network'.
 
 ```ruby
-require 'somegem'
+require 'local_message'
+
+router = LocaleMessageRouter.new(5000)
+router.start
+printer = LocalMessageClient.new('localhost', 5000, 'Ol Faithful')
+printer.register
 
 print_queue = Queue.new
 
-while true
-	new_message = port_listen
-	print_queue.enqueue(new_message)
-end
+print_queue.enqueue(printer.listen)
 
 if printer.idle unless print_queue.empty?
-	image = print_queue.dequeue
 	printer.idle = false
+	image = print_queue.dequeue
 	printer.print(image)
 	printer.idle = true
 end
 ```
 
-The while loop listens for messages over local port and adds them to the print_queue as they come in. If the printer is idle and there are prints in the print queue, the printer is instructed to print the image, switching it's state to unavailable and when it finishes it is available to take the next print in line.
+LocalMessage listens for print jobs over port 5000 and adds them to the print_queue as they come in. If the printer is idle and there are prints in the print queue, the printer is instructed to print the image, switching it's state to unavailable and when it finishes it is available to take the next print in line.
+
 See [source code](/queue.rb/)
 
-##Stack
-A stack is a LIFO data structure. Think of a stack like a stack of plates at a restaurant. The last plate placed on top of the stack is the first plate to be used. In this example we'll use two stacks to create a back button and a forward button like on a web browser.
+##Stack (DONE!)
+A stack is a LIFO (Last In, First Out) data structure. Think of a stack like a stack of plates at a restaurant. The last plate placed on top of the stack is the first plate to be used. In this example, we'll use two stacks to create a back button and a forward buttons on an imaginary browser.
+
+This simple, imaginary browser has three methods, .load, .back and .forward. Every time a call to .load is made, the browser pushes the URL to the page it was looking at to the back stack. If the user calls .back, the last web page visited is brought into view with .load and the page the user was looking at is pushed onto the forward stack.
 
 ```ruby
 back = Stack.new
 forward = Stack.new
 
 if browser.load(URL)
-	current_page = back.push(URL)
+	back.push(current_page)
 end
 
 if browser.back
@@ -80,54 +86,55 @@ if browser.forward
 end
 ```
 
-This simple web browser has three methods, .load, .back and .forward. Every time a call to .load is made, the browser pushes the URL to that page onto the back stack. If the user calls .back, the last web page visited is brought into view and the page the user was looking at is pushed onto the forward stack. If they user calls the .forward, the last page pushed onto that stack is brought into view and the page the user was looking at is returned to the back stack.
 See [source code](/stack.rb/)
 
-##Stackqueue
-A stackqueue is a queue made out of two stacks. At first blush it may not be obvious how to make a queue out of two stacks and even less apparent is why one would want to. If you are using a linked list to create your queue, enqueueing will be an O(1) operation but dequeuing will be an 0(n) operation because the whole linked list much be traversed before you can find the node where node.next points to nil. The runtime of enqueuing and dequeueing can be improved by using a stackqueue. Since the end result will be the same as the queue described above, I won't provide a code example here. This implementation of a stackqueue is somewhat anachronistic because the stacks are made of an array, making enqueing and dequeing both an 0(1) operation; however, looking at the source code you can get an understanding of the logic behind implementing a stackqueue.
+##Stackqueue (DONE!)
+A stackqueue is a queue made out of two stacks. At first blush, it may not be obvious how to make a queue out of two stacks and even less apparent why one might want to.
+
+The problem with using a linked list to create a queue is that enqueueing will be an O(1) operation but dequeuing will be an O(n) operation because the whole linked list much be traversed before nil pointer node can be found (this true singly, not doubly, linked lists).
+
+A stackqueue is made by enqueing onto one stack and dequeing from the other. For this example, we'll call the enqueue stack the 'Push Stack' and the dequeue stack the 'Pop Stack.' Elements are enqueued onto the Push Stack exclusively. If a dequeue operation is attempted on the Pop Stack and it has nothing to dequeue, all elements elements from the Push Stack are dequed from the Push Stack and enqueued onto the Pop Stack. Then an element is dequeued from the Pop stack. Moving all elements from the Push Stack to the Pop Stack is an expensive operation but, if the cost of that operation is amortized over n operations, the resulting resulting runtime is O(1) for both enqueue and dequeue.
+
+Implementation of a stackqueue in Ruby is somewhat anachronistic because the stacks used are based on the Array class, making enqueing and dequeing both O(1) by default; however, looking at the source code can provide an understanding of the theory behind implementing a stackqueue.
 
 See [source code](/stack_queue.rb/)
 
 ##Directed Graph
-In this example, we'll work with real-world data from Stanford's Large Network Dataset Collection. This dataset is from the website Epinions.com, a consumer review website. From the SNAP website, "members of the site can decide whether to 'trust' each other. All the trust relationships interact and form the Web of Trust which is then combined with review ratings to determine which reviews are shown to the user." This graph is a directed graph because trust is not necessarily mutual. At a minimum, a relationship between two nodes has a direction.
+In this example, we'll work with real-world data from [Stanford's Large Network Dataset Collection](https://snap.stanford.edu/data/). This dataset is from the website Epinions.com, a consumer review website. From the SNAP website, "members of the site can decide whether to 'trust' each other. All the trust relationships interact and form the Web of Trust which is then combined with review ratings to determine which reviews are shown to the user." This graph is a directed graph because trust is not necessarily mutual. At a minimum, a relationship between two nodes has one direction.
 
-Download the dataset from (https://snap.stanford.edu/data/soc-Epinions1.html SNAP, Epinions social network)
+Download the dataset from [SNAP, Epinions social network](https://snap.stanford.edu/data/soc-Epinions1.html)
 
-| Dataset Stats  |
-| ----- | ------ |
-| Nodes |	75879  |
-| Edges	| 508837 |
- ----------------
+Dataset Stats
+| ------ | ------:|
+| Nodes  | 75879  |
+| Edges  | 508837 |
 
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
-
-This dataset comes in a txt file in the form of pairs of node ids. The data is anonymized, so our nodes will contain no values, only ids. First we'll all of the nodes one by one, the data on the left side of the text file, then we'll add their edges, the data on the right.
+This dataset comes in a txt file in the form of pairs of node ids. The data is anonymized, so our nodes will contain no values, only ids. We don't know for sure if we've created the nodes before we try to connect them with an edge, so our strategy with this dataset will be to create as many blank nodes as we know we'll need and then connect them based on the relationships listed in the seed file.
 
 ```ruby
 trust_network = DirectedGraph.new
 
-File.open('soc-Epnions.txt').each do |line|
-	trust_network.add_node({id: line[0]})
-	trust_network.add_edge(line[0], line[1])
+100000.times {trust_network.add_node(nil)}
+
+File.open('test-data/full_data_set_soc-Epinions.txt').each do |line|
+  line_arr = line.split(" ")
+  trust_network.add_edge(line_arr[0].to_i, line_arr[1].to_i)
 end
 ```
 
-With that, we now have a data structure that accurately models the trust relationships across a subsection of the Epinions website. In this next section, we'll cover different strategies for searching over the nodes and the edges to find trust relationships.
+The resulting data structure taccurately models the trust relationships across a subsection of the Epinions website. To check if two nodes are adjacent call .adjacent? on the graph passing in two nodes of interest. To see all neighbors use .neighbors. The next sections cover different strategies for searching over the nodes and the edges to find relationships between them.
 
-##Breadth-first Search
-Breadth-first search is a iterative algorithm for searching over nodes and edges to see if there is a path from one node to another. Breadth first search moves out from the root node in a wave-like pattern, searching all of the nearest nodes first and then the next nearest and so forth.
+##Breadth-first Search (DONE!)
+Breadth-first search is a iterative algorithm for searching over nodes and edges to see if there is a path from one node to another. Breadth first search moves out from the root node to all traversable leaf nodes in a wave-like pattern, searching all of the nearest nodes first and then the next nearest and so forth.
 
-Let's see if we can find a path from one user to the next. In the context of this graph, a link from one node to another could be used to simulate the trustworthiness of someone we don't know. If we believe that people we trust are likely to truth other people who we can also trust, through the transitive property, we know that we can trust an individual if we can find a trust-path from us to them.
+Using breadth-first search in the context of the Epinions graph, a link from one node to another could be used to estimate the trustworthiness of an individual based on the known trustworthiness of a specific individual. If it holds true that trustworthy people are likely to truth other people who are also trustworthy, given known people who are trustworthy, a map of trustworthiness could be modeled using breadth-first search.
 
-Assuming the node id that represents us is id: 234, let's see if we can trust the user with id: 5361.
+Graph node at id 0 is known to be trustworthy. Is the individual with idea 71400 trustworthy by the transitive property?
 
 ```ruby
-breadth_first_search_include?(234, 5361)
+trust_network.breadth_first_search_include?(0, 71400)
 ```
+It appears so! What about user at id 70,000?
 
 ##Undirected Graph
 An undirected is simply a graph where the edges have no direction. These graphs model relationships where, if a relationship exists between two nodes, then you can traverse from one node to the other and back again. Think of it like a handshake. You can't shake someone's hand without them also shaking your hand.
@@ -144,11 +151,10 @@ end
 ```
 This dataset is properly massive, with over 65 million users and almost two trillion friendships.
 
-| Dataset Stats      |
-| ----- | ---------- |
-| Nodes |	65608366   |
-| Edges	| 1806067135 |
- --------------------
+Dataset Stats
+| ------ | ----------:|
+| Nodes  | 65608366   |
+| Edges  | 1806067135 |
 
 Note: this may take a while to run and may use a large portion of your computer's RAM. Social networking sites use computers much larger than your home laptop to model their users and user-relationships.
 
