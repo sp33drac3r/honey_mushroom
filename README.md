@@ -36,10 +36,10 @@ Encapsulate any set of data in one of the structures described above and travers
 I made this project to teach myself abstract data types and I use it to become better at solving real-world problems using graphs. If you wish to contribute to this project:
 
 1. I <3 you.
-2. Make a pull request with a clear, detailed description of the change or feature.
+2. Fork it, clone it, change it and make a pull request with a clear, detailed description of the change or feature.
 3. I'll review and merge it.
 
-Bug reports: https://github.com/sp33drac3r/abstact_data_types/issues
+Bug reports: https://github.com/sp33drac3r/honey_mushroom/issues
 
 ##Armillaria Solidipes
 This gem gets it's name from the 'Humongous Fungus,' the largest living organism on earth. A single specimen in the Malheur National Forest in Oregon has been growing for over 2,400 years and covers 3.4 square miles. A massive network of long rhizomorphs traverse between sapwood hosts and, in Autumn, bloom honey mushrooms.
