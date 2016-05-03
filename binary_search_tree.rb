@@ -8,58 +8,61 @@ class BinarySearchTree
     @head = Node.new(value)
   end
 
-  def search(node=@head, value)
-    if node.value == value
+  def search(value, node=@head)
+    if value == node.value
       return node.value
     elsif value < node.value
-      return search(value.left, value)
+      search(value, node.left) unless node.left.nil?
+    elsif value > node.value
+      search(value, node.right) unless node.right.nil?
     else
-      return search(value.right, value)
+      return nil
     end
-    return nil
   end
 
-  def include?(node=@head, value)
-    !!search(node, value)
+  def include?(value, node=@head)
+    !!search(value, node)
   end
 
-  def insert(node=@head, value)
+  #TODO
+  def balance!
+  end
+
+  #TODO
+  def delete(value)
+  end
+
+  def insert(value, node=@head)
     if node.value < value
-      insert_right(node.right, value)
+      insert_right(value, node)
     elsif node.value > value
-      insert_left(node.left, value)
+      insert_left(value, node)
     else
       return false
     end
   end
 
-  def balance!
-  end
-
-  def delete(value)
-  end
-
-
   private
 
-  def insert_left(node, value)
-    if self.left
-      insert(node.left, value)
+  def insert_left(value, node)
+    if node.left
+      insert(value, node.left)
     else
-      self.left = Node.new(value)
+      node.left = Node.new(value)
     end
   end
 
-  def insert_right(node, value)
-    if self.right
-      right.insert(node.right,  value)
+  def insert_right(value, node)
+    if node.right
+      insert(value, node.right)
     else
-      self.right = Node.new(value)
+      node.right = Node.new(value)
     end
   end
 end
 
 class Node
+  attr_accessor :value, :right, :left
   def initialize(value)
     @value = value
     @right = nil

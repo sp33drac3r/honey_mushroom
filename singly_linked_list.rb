@@ -1,4 +1,3 @@
-require_relative 'node'
 require_relative 'linked_list'
 
 class SinglyLinkedList < LinkedList
@@ -23,10 +22,3 @@ class SinglyLinkedList < LinkedList
     return s
   end
 end
-
-conga_lovers = ["James", "Tammy", "Arjav", "Shambhavi", "Dre", "Shannon", "Raquel"]
-conga_line = SinglyLinkedList.new
-
-conga_lovers.each { |person| conga_line.add(person)}
-
-p conga_line.to_s

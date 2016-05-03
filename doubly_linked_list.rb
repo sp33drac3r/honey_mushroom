@@ -12,12 +12,13 @@ class DoublyLinkedList < LinkedList
     node = Node.new({value: value, next: nil, last: nil})
     node.next = @head
     @head = node
-    node.next.last = node
+    node.next.last = node unless node.next.nil?
     @tail = node if @tail.nil?
   end
 
   def remove_front
-    super
+    current = @head
+    @head = current.next
     current.next.last = nil
 
     return current
@@ -42,3 +43,16 @@ class DoublyLinkedList < LinkedList
     return s
   end
 end
+
+conga_lovers = ["Murat", "Rico", "Arjav", "Shambhavi", "Dre", "Shannon", "Raquel"]
+
+conga_line = DoublyLinkedList.new
+
+conga_lovers.each { |person| p person; conga_line.add(person)}
+
+p conga_line.to_s
+conga_line.remove_back
+p conga_line.to_s
+conga_line.remove_front
+p conga_line.to_s
+
