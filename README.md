@@ -18,7 +18,7 @@ None of the data structures in this gem are best expressed in Ruby. C programmin
 * Breadth-first Search (BFS) [wikipedia](https://en.wikipedia.org/wiki/Breadth-first_search)
 
 ##Examples
-See [EXAMPLES.md](/EXAMPLES.md/) for examples including all of the data types and algorithms listed above. Each data structure and algorithm listed above.
+See [EXAMPLES.md](/examples.md/) for examples including all of the data types and algorithms listed above. Each data structure and algorithm listed above.
 
 ##Coming Soon
 * Iterative Deepening Depth First Search
