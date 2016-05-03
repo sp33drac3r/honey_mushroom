@@ -1,36 +1,28 @@
 #Honey Mushroom
 Graph theory is "the study of nodes (vertices) connected in pairs by edges."<sup>[[1]](https://en.wikipedia.org/wiki/Glossary_of_graph_theory)</sup> Though simple enough to describe, graphs can be a devil to implement. Honey Mushroom builds and traverses these abstract data structures in Ruby.
 
-None of the data structures in this gem are best expressed in Ruby. C programming language, for example, is much better suited to model a queue, using pointers to create a linked list. In fact, using Ruby's array class to model these data-types unnecessarily limits Ruby's array functionality. Furthermore, using Ruby objects to model nodes and edges makes these graphs needlessly space inefficient. These downsides are outweighed by Ruby's accessible syntax that makes their implementation exceedingly easy to understand.
+None of the data structures in this gem are best expressed in Ruby. C programming language, for example, is much better suited to model a queue, using pointers to create a linked list. In fact, using Ruby's array class to model these data-types unnecessarily limits Ruby's array functionality. Furthermore, using Ruby objects to model nodes and edges makes these graphs needlessly space inefficient. These downsides are balanced by Ruby's exceedingly accessible syntax, making the implementation of these graphs easy to understand.
 
-##Graph Base-types
-All specific implementations of a graph are born of two main graph types.
+##Data Types Included
+* Graph superclass
 * Directed Graph (edges have a direction and can only be traversed in said direction)
 * Undirected Graph (edges have no direction and be traversed freely)
-
-##Graph Sub-types
-The two basic graph types are flexible enough to extend more ridged data structures.
-* Weighted Graph (edges have a cost associated with traversal)
-* Vertex Labeled Graph
-* Mixed Graph
-* Bi/n-ary Tree (a tree is just a special kind of graph)
-* A/cyclic Graph
-* In/finite Graph
-
-##Algorithms
-* Depth-first Search (DFS) [wikipedia](https://en.wikipedia.org/wiki/Depth-first_search)
-* Breadth-first Search (BFS) [wikipedia](https://en.wikipedia.org/wiki/Breadth-first_search)
-* Iterative Deepening Depth-first Search (IDDFS) [wikipedia](https://en.wikipedia.org/wiki/Iterative_deepening_depth-first_search)
-* Dijkstra's Algorithm [wikipedia](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
-
-##Additional Data-types
+* Binary Search Tree (a tree is just a special kind of graph)
 * Linked List (single and double)
 * Queue
 * Stack
 * Stackqueue
 
+##Algorithms
+* Depth-first Search (DFS) [wikipedia](https://en.wikipedia.org/wiki/Depth-first_search)
+* Breadth-first Search (BFS) [wikipedia](https://en.wikipedia.org/wiki/Breadth-first_search)
+
 ##Examples
-Encapsulate any set of data in one of the structures described above and traverse it for fun or profit! See [examples.md](/examples.md/) for a tutorials using all of the data structures and algorithms listed above.
+See [EXAMPLES.md](/EXAMPLES.md/) for examples including all of the data types and algorithms listed above. Each data structure and algorithm listed above.
+
+##Coming Soon
+* Iterative Deepening Depth First Search
+* Dijkstra's Algorithm
 
 ##Contributing
 I made this project to teach myself abstract data types and I use it to become better at solving real-world problems using graphs. If you wish to contribute to this project:

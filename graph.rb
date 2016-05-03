@@ -1,16 +1,12 @@
 require_relative 'node'
 require_relative 'depth_first_search'
 require_relative 'breadth_first_search'
-require_relative 'iterative_deepening_depth_first_search'
-require_relative 'dijkstras'
 
 class Graph
 
   attr_accessor :nodes
   include DepthFirstSearch
   include BreadthFirstSearch
-  include IterativeDeepeningSearch
-  include Dijkstras
 
   def initialize
     @nodes = {}
