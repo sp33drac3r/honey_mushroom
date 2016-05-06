@@ -43,16 +43,3 @@ class DoublyLinkedList < LinkedList
     return s
   end
 end
-
-conga_lovers = ["Murat", "Rico", "Arjav", "Shambhavi", "Dre", "Shannon", "Raquel"]
-
-conga_line = DoublyLinkedList.new
-
-conga_lovers.each { |person| p person; conga_line.add(person)}
-
-p conga_line.to_s
-conga_line.remove_back
-p conga_line.to_s
-conga_line.remove_front
-p conga_line.to_s
-
