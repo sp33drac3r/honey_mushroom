@@ -1,5 +1,5 @@
-require_relative 'node'
-require_relative 'linked_list'
+require 'honey_mushroom/node'
+require 'honey_mushroom/linked_list'
 
 class DoublyLinkedList < LinkedList
   attr_accessor :tail

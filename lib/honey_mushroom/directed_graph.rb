@@ -1,2 +1,2 @@
-require_relative 'graph'
+require 'honey_mushroom/graph'
 class DirectedGraph < Graph; end
