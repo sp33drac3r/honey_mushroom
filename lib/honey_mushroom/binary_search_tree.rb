@@ -1,4 +1,4 @@
-require_relative 'node'
+require 'honey_mushroom/node'
 
 class BinarySearchTree
 

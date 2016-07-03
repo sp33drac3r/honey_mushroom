@@ -1,4 +1,4 @@
-require_relative 'linked_list'
+require 'honey_mushroom/linked_list'
 
 class SinglyLinkedList < LinkedList
 

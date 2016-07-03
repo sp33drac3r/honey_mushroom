@@ -1,6 +1,6 @@
-require_relative 'node'
-require_relative 'depth_first_search'
-require_relative 'breadth_first_search'
+require 'honey_mushroom/node'
+require 'honey_mushroom/depth_first_search'
+require 'honey_mushroom/breadth_first_search'
 
 class Graph
 

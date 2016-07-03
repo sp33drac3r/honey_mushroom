@@ -1,4 +1,4 @@
-require_relative 'stack'
+require 'honey_mushroom/stack'
 
 class StackQueue
   attr_accessor :stack_one, :stack_two
