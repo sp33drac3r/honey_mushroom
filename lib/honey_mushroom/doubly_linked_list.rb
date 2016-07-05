@@ -40,6 +40,6 @@ class DoublyLinkedList < LinkedList
       current = current.next
     end
 
-    return s
+    return s + '@tails'
   end
 end

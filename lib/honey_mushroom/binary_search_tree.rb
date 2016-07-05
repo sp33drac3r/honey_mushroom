@@ -64,7 +64,7 @@ class BinarySearchTree
     end
   end
 
-  def change_paretn(node)
+  def change_parent(node)
     node.value = successor_value(node.right)
     node.right = update(node.right)
     node

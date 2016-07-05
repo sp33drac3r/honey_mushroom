@@ -1,3 +1,4 @@
+require 'honey_mushroom/node'
 require 'honey_mushroom/linked_list'
 
 class SinglyLinkedList < LinkedList

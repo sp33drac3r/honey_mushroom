@@ -6,7 +6,7 @@ class Stack
 
   def push(value)
     stack.push(value)
-    return value
+    self
   end
 
   def pop

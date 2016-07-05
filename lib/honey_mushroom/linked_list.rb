@@ -1,3 +1,5 @@
+require 'honey_mushroom/node'
+
 class LinkedList
   attr_accessor :head
   def initialize
@@ -17,12 +19,12 @@ class LinkedList
     return current
   end
 
-  def find(value)
+  def find(target)
     current = @head
-    until current.value == value
+    until current.value == target
       current = current.next
     end
 
-    return "Value: #{current.value}  Next: #{current.next.value}  ID: #{current.id}"
+    return "Value: #{current.value}  Next: #{current.next}  ID: #{current.id}"
   end
 end

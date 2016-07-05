@@ -1,4 +1,5 @@
 class Node
+  # @@auto_increment is flaky. Find a better way to initialize to 0 and increment each instance.
   @@auto_increment = 0
   attr_reader :id
   attr_accessor :value,  :edges,  :next, :last, :left,

@@ -1,22 +1,23 @@
 require 'honey_mushroom/stack'
 
 class StackQueue
-  attr_accessor :stack_one, :stack_two
+  attr_accessor :push_stack, :pop_stack
   def initialize
-    @stack_one = Stack.new
-    @stack_two = Stack.new
+    @push_stack = Stack.new
+    @pop_stack = Stack.new
   end
 
   def enqueue(value)
-    stack_one.push(value)
+    push_stack.push(value)
+    self
   end
 
   def dequeue
-    if stack_two.stack.empty?
-      stack_two.push(stack_one.pop) until stack_one.stack.empty?
+    if pop_stack.stack.empty?
+      pop_stack.push(push_stack.pop) until push_stack.stack.empty?
     end
 
-    stack_two.pop
+    pop_stack.pop
   end
 
   def enq(value) #shorthand = less typing =)
