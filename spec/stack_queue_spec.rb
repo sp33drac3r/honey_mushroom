@@ -11,11 +11,18 @@ describe StackQueue do
       expect(@stack_q.push_stack.stack.length).to eq 4
     end
 
-    it 'moves all values to the pop stack if empty' do
+    it 'starts with the pop stock empty' do
       expect(@stack_q.pop_stack.stack.empty?).to eq true
+    end
+
+    it 'moves all values to the pop stack if empty' do
       @stack_q.dq
       expect(@stack_q.pop_stack.stack.length).to eq 3
-      expect(@stack_q.push_stack.stack.empty?).to eq true
+    end
+
+    it 'ends with the push stack empty after a carry-over operation' do
+      @stack_q.dq
+       expect(@stack_q.push_stack.stack.empty?).to eq true
     end
   end
 end

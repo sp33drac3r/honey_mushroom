@@ -1,6 +1,7 @@
 class Node
   # @@auto_increment is flaky. Find a better way to initialize to 0 and increment each instance.
-  @@auto_increment = 0
+  $auto_increment = 0
+
   attr_reader :id
   attr_accessor :value,  :edges,  :next, :last, :left,
                 :right,  :value2, :value3, :value4
@@ -16,8 +17,17 @@ class Node
     @value3 = args.fetch(:value3, nil) if args.include?(:value3)
     @value4 = args.fetch(:value4, nil) if args.include?(:value4)
 
-    @id     = args.fetch(:id, @@auto_increment)
+    @id     = args.fetch(:id, $auto_increment)
 
-    @@auto_increment += 1
+    $auto_increment += 1
   end
+
+  def self.auto_increment
+    $auto_increment
+  end
+
+  def self.auto_increment= (value)
+    $auto_increment = value
+  end
+
 end
