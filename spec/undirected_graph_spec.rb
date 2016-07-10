@@ -27,7 +27,5 @@ describe UndirectedGraph do
       @undirected_graph.delete_edge(1, 2)
       expect(@undirected_graph.nodes[2].edges).not_to include(1)
     end
-
-    end
   end
 end

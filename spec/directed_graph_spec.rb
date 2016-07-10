@@ -10,7 +10,7 @@ describe DirectedGraph do
 
     it 'adds a node' do
       @directed_graph.add_node(6)
-      expect(@directed_graph.nodes[6].to eq 6
+      expect(@directed_graph.nodes[6]).to eq 6
     end
 
     it 'chains adding together' do
@@ -42,7 +42,7 @@ describe DirectedGraph do
     end
 
     it 'tells if two nodes are adjacent' do
-      expect(@directed_graph.adjacent(1, 2)).to eq true
+      expect(@directed_graph.adjacent?(1, 2)).to eq true
     end
 
     it 'lists all neighbors for a given node' do
