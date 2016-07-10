@@ -30,9 +30,12 @@ describe BreadthFirstSearch do
     end
 
     it 'correctly finds a related node' do
+      expect(@undirected_graph.depth_first_search_include?(1, 4)).to eq true
     end
 
-    it 'does not search the same node twice' do
+    it 'returns false for unrelated nodes' do
+      @undirected_graph.add_node(6)
+      expect(@undirected_graph.depth_first_search_include?(1, 6)).to eq false
     end
   end
 end
