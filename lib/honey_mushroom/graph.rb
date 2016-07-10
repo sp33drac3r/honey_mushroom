@@ -1,4 +1,4 @@
-require 'honey_mushroom/node'
+require 'honey_mushroom/node.rb'
 require 'honey_mushroom/depth_first_search'
 require 'honey_mushroom/breadth_first_search'
 
@@ -9,6 +9,7 @@ class Graph
   include BreadthFirstSearch
 
   def initialize
+    Node.auto_increment = 0
     @nodes = {}
   end
 
@@ -49,8 +50,8 @@ class Graph
   #FIXIT: to_s broken for undirected graph
   def to_s
     s = ""
-    @nodes.each do |node_id, node|
-      s += "#{node_id} (#{node.value}) => #{node.edges} \n"
+    @nodes.each do |node|
+      s += "#{node.id} (#{node.value}) => #{node.edges} \n"
     end
     return s
   end

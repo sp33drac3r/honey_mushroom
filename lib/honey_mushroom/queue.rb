@@ -1,11 +1,12 @@
 class Queue
+  attr_reader :queue
   def initialize
     @queue = []
   end
 
   def enqueue(value)
     @queue.push(value)
-    return value
+    self
   end
 
   def dequeue

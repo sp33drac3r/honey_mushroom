@@ -1,5 +1,7 @@
 class Node
+  # @@auto_increment is flaky. Find a better way to initialize to 0 and increment each instance.
   @@auto_increment = 0
+
   attr_reader :id
   attr_accessor :value,  :edges,  :next, :last, :left,
                 :right,  :value2, :value3, :value4
@@ -19,4 +21,13 @@ class Node
 
     @@auto_increment += 1
   end
+
+  def self.auto_increment
+    @@auto_increment
+  end
+
+  def self.auto_increment= (value)
+    @@auto_increment = value
+  end
+
 end

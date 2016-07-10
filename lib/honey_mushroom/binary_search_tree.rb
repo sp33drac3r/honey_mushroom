@@ -10,6 +10,30 @@ class BinarySearchTree
     @head = Node.new({value: value, left: nil, right: nil})
   end
 
+  def insert(value, node=@head)
+    if node.value < value
+      insert_right(value, node)
+    elsif node.value > value
+      insert_left(value, node)
+    else
+      return false             #does not allow for duplicate values
+    end
+  end
+
+  def include?(value, node=@head)
+    !!search(value, node)
+  end
+
+  def delete(value, node=@head)
+    if value == node
+      remove(value)
+    elsif node < value
+      delete(value, node.left)
+    else
+      delete(value, node.right)
+    end
+  end
+
   def search(value, node=@head)
     if value == node.value
       return node.value
@@ -22,35 +46,24 @@ class BinarySearchTree
     end
   end
 
-  def include?(value, node=@head)
-    !!search(value, node)
-  end
-
-  def delete(value)
-    delete_node(value, node=@head)
-  end
-
-  def insert(value, node=@head)
-    if node.value < value
-      insert_right(value, node)
-    elsif node.value > value
-      insert_left(value, node)
-    else
-      return false
-    end
-  end
-
   private
 
-  def delete_node(value, node)
-    if value == node
-      remove(value)
-    elsif node < value
-      delete_node(value, node.left)
+  def insert_right(value, node)
+    if node.right
+      insert(value, node.right)
     else
-      delete_node(value, node.right)
+      node.right = Node.new({value: value, left: nil, right: nil})
     end
   end
+
+  def insert_left(value, node)
+    if node.left
+      insert(value, node.left)
+    else
+      node.left = Node.new({value: value, left: nil, right: nil})
+    end
+  end
+
 
   def remove(node)
     if node.left.nil? && node.right.nil?
@@ -64,7 +77,7 @@ class BinarySearchTree
     end
   end
 
-  def change_paretn(node)
+  def change_parent(node)
     node.value = successor_value(node.right)
     node.right = update(node.right)
     node
@@ -84,19 +97,4 @@ class BinarySearchTree
     node.right
   end
 
-  def insert_left(value, node)
-    if node.left
-      insert(value, node.left)
-    else
-      node.left = Node.new({value: value, left: nil, right: nil})
-    end
-  end
-
-  def insert_right(value, node)
-    if node.right
-      insert(value, node.right)
-    else
-      node.right = Node.new({value: value, left: nil, right: nil})
-    end
-  end
 end
