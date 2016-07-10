@@ -17,10 +17,6 @@ describe BreadthFirstSearch do
     it 'does returns false for unrelated nodes' do
       expect(@directed_graph.breadth_first_search_include?(4, 1)).to eq false
     end
-
-    it 'it does not visit the same node twice' do
-
-    end
   end
 
   context 'undirected graph' do
